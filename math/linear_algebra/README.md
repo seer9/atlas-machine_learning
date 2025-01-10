@@ -1,0 +1,1 @@
+Ill be learning linear algebra and putting my work in this directory.

@@ -1,0 +1,1 @@
+In this directory ill be uploading the math concepts ill be learning for machine learning.
