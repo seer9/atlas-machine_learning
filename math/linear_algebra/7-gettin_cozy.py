@@ -18,7 +18,13 @@ def cat_matrices2D(mat1, mat2, axis=0):
         return mat1 if axis == 0 else None
 
     if axis == 0:
-        return [row.copy() for row in mat1] + [row.copy() for row in mat2]
+        if len(mat1[0]) != len(mat2[0]):
+            return None
+        else:
+            return mat1 + mat2
+
     if axis == 1:
         return [row.copy() + mat2[i].copy() for i, row in enumerate(mat1)]
     return None
+
+
