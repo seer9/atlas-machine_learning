@@ -11,7 +11,12 @@ def cat_matrices2D(mat1, mat2, axis=0):
     if not all(len(row) == len(mat1[0]) for row in mat1):
         return None
     if not mat1 or not mat2:
-        return None
+        return []
+    if not mat1:
+        return mat2 if axis == 0 else None
+    if not mat2:
+        return mat1 if axis == 0 else None
+
     if axis == 0:
         return [row.copy() for row in mat1] + [row.copy() for row in mat2]
     if axis == 1:
