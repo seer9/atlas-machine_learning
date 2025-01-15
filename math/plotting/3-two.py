@@ -16,9 +16,10 @@ def two():
     plt.plot(x, y2, 'g', label='Ra-226')
     plt.xlim(0, 20000)
     plt.ylim(0, 1)
-    plt.title('Exponential Decay of Radioactive Elements')
+    plt.yscale('log')
+    plt.title('Exponential Decay of C-14')
     plt.xlabel('Time (years)')
     plt.ylabel('Fraction Remaining')
-    plt.legend()
+    plt.legend(loc='upper right')
     plt.show()
     return
