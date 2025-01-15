@@ -18,10 +18,13 @@ def bars():
     """
     labels = ['Farrah', 'Fred', 'Felicia']
     width = 0.5
-    plt.bar(labels, fruit[0], width, color='r', label='apples')
-    plt.bar(labels, fruit[1], width, color='yellow', label='bananas', bottom=fruit[0])
-    plt.bar(labels, fruit[2], width, color='#ff8000', label='oranges', bottom=fruit[0]+fruit[1])
-    plt.bar(labels, fruit[3], width, color='#ffe5b4', label='peaches', bottom=fruit[0]+fruit[1]+fruit[2])
+    colors = ['red', 'yellow', '#ff8000', '#ffe5b4']
+    labels = ['apples', 'bananas', 'oranges', 'peaches']
+    bottom = np.zeros(3)
+    for i in range(4):
+        plt.bar(['Farrah', 'Fred', 'Felicia'], fruit[i], bottom=bottom,
+                color=colors[i], label=labels[i], width=width)
+        bottom += fruit[i]
     plt.ylabel('Quantity of Fruit')
     plt.title('Number of Fruit per Person')
     plt.legend()
