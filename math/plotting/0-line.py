@@ -2,7 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 """
-line function
+in this module the function line is created using matplotlib
 """
 
 
