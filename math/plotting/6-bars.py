@@ -1,12 +1,21 @@
 #!/usr/bin/env python3
+"""
+in this module, there is a function called bars()
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def bars():
+    """
+    this function creates a bar graph.
+    """
     np.random.seed(5)
     fruit = np.random.randint(0, 20, (4,3))
     plt.figure(figsize=(6.4, 4.8))
-
+    """
+    plotting the bar graph.
+    """
     labels = ['Farrah', 'Fred', 'Felicia']
     width = 0.5
     plt.bar(labels, fruit[0], width, color='r', label='apples')
