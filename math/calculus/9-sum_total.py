@@ -11,5 +11,7 @@ def summation_i_squared(n):
     the square roots of natural numbers
     """
     if not isinstance(n, int) or n < 1:
+        """if is not an integer or is less than 1"""
         return None
+    """return the sum of the squares of natural numbers"""
     return n * (n + 1) * (2 * n + 1) // 6
