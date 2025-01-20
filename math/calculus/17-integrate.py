@@ -8,7 +8,7 @@ def poly_integral(poly, C=0):
     """
     takes in a  poly and returns the integral of poly
     """
-    if not isinstance(poly, list) or len(poly) == 0:
+    if not isinstance(poly, list) or not  isinstance(C, int):
         """if poly is not a list or is empty"""
         return None
     if not isinstance(C, (int, float)):
@@ -19,3 +19,4 @@ def poly_integral(poly, C=0):
         return [C]
     """return the integral of the polynomial"""
     return [C] + [poly[i] / (i + 1) for i in range(len(poly))]
+
