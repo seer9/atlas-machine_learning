@@ -12,5 +12,8 @@ def poly_derivative(poly):
     if not isinstance(poly, list) or len(poly) == 0:
         """if poly is not a list or is an empty list"""
         return None
+    if len(poly) == 1:
+        """if poly has only one element"""
+        return [0]
     """return the derivative of the polynomial"""
     return [poly[i] * i for i in range(1, len(poly))]
