@@ -6,17 +6,28 @@ module for the function poly_integral(poly)
 
 def poly_integral(poly, C=0):
     """
-    takes in a  poly and returns the integral of poly
+    if poly is not a list or is an empty list, return None
     """
-    if not isinstance(poly, list) or not  isinstance(C, int):
-        """if poly is not a list or is empty"""
+    if type(poly) is not list or len(poly) == 0:
         return None
-    if not isinstance(C, (int, float)):
-        """if C is not a float"""
+    elif type(C) is int:
+        """
+        if poly is a list and C is an integer
+        """
+        if poly == [0]:
+            return [C]
+        power = 0
+        integral = poly.copy()
+        """i is the index of the element in the list"""
+        for i in range(len(integral)):
+            if type(integral[i]) is int or type(integral[i]) is float:
+                power += 1
+                num = integral[i] / power
+                integral[i] = int(num) if num % 1 == 0 else num
+            else:
+                return None
+        integral.insert(0, C)
+        """return the integral of the polynomial"""
+        return integral
+    else:
         return None
-    if len(poly) == 1:
-        """if poly has only one element"""
-        return [C]
-    """return the integral of the polynomial"""
-    return [C] + [poly[i] / (i + 1) for i in range(len(poly))]
-
