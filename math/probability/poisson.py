@@ -5,7 +5,7 @@ class that represents a poisson distribution
 
 
 class Poisson:
-    """Represents a Poisson distribution"""
+    """represents a Poisson distribution"""
 
     e = 2.7182818285
 
@@ -48,3 +48,18 @@ class Poisson:
         if k < 0:
             return 0
         return ((self.lambtha ** k)*(e ** -self.lambtha))/self._factorial(k)
+
+    def cdf(self, k):
+        """
+        calculates the value of the CDF for a given number of successes
+        """
+        k = int(k)
+        if k < 0:
+            return 0
+        F = 0
+        """
+        calculates for all values from 0 to the number of successes
+        """
+        for i in range(k + 1):
+            F += self.pmf(i)
+        return F
