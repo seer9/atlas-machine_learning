@@ -57,3 +57,16 @@ class Binomial:
         fact_nk = self._factorial(self.n - k)
         nkn = fact_n / (fact_k * fact_nk)
         return nkn * (self.p ** k) * ((1 - self.p) ** (self.n - k))
+
+    def cdf(self, k):
+        """
+        calculates the value of the CDF for a given number of successes
+        """
+        if type(k) is not int:
+            k = int(k)
+        if k < 0:
+            return 0
+        cdf = 0
+        for i in range(k + 1):
+            cdf += self.pmf(i)
+        return cdf
