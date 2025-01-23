@@ -34,3 +34,26 @@ class Binomial:
             p = mean / n
             self.n = n
             self.p = p
+
+    def _factorial(self, n):
+        """
+        calculates the factorial of 'n'
+        """
+        product = 1
+        for i in range(1, n + 1):
+            product *= i
+        return product
+    
+    def pmf(self, k):
+        """
+        calculates the value of the PMF for a given number of successes
+        """
+        if type(k) is not int:
+            k = int(k)
+        if k < 0 or k > self.n:
+            return 0
+        fact_n = self._factorial(self.n)
+        fact_k = self._factorial(k)
+        fact_nk = self._factorial(self.n - k)
+        nkn = fact_n / (fact_k * fact_nk)
+        return nkn * (self.p ** k) * ((1 - self.p) ** (self.n - k))
