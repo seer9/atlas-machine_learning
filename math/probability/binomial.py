@@ -3,6 +3,10 @@
 
 
 class Binomial:
+    """
+        binomial distribution is used for calculating the probability of
+        getting a number of successes in a fixed number of trials
+    """
 
     def __init__(self, data=None, n=1, p=0.5):
         """
