@@ -12,6 +12,9 @@ class Normal:
     stddev - standard deviation of the distribution
     """
 
+    e = 2.7182818285
+    pi = 3.1415926536
+
     def __init__(self, data=None, mean=0., stddev=1.):
         if data is None:
             if stddev <= 0:
@@ -41,3 +44,14 @@ class Normal:
         calculates the x-value of a given z-score
         """
         return (z * self.stddev) + self.mean
+
+    def pdf(self, x):
+        """
+        calculates the value of the PDF for a given x-value
+        """
+
+        e = Normal.e
+        pi = Normal.pi
+        coef = 1 / (self.stddev * (2 * pi) ** 0.5)
+        expo = -((x - self.mean) ** 2) / (2 * self.stddev ** 2)
+        return coef * (e ** expo)
