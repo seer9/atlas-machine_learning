@@ -43,7 +43,7 @@ class Binomial:
         for i in range(1, n + 1):
             product *= i
         return product
-    
+
     def pmf(self, k):
         """
         calculates the value of the PMF for a given number of successes
