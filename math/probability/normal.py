@@ -55,3 +55,20 @@ class Normal:
         coef = 1 / (self.stddev * (2 * pi) ** 0.5)
         expo = -((x - self.mean) ** 2) / (2 * self.stddev ** 2)
         return coef * (e ** expo)
+
+    def _erf(self, z):
+        """
+        calculates the error function
+        """
+        pi = Normal.pi
+        erf = z - (z ** 3) / 3 + (z ** 5) / 10 - (z ** 7) / 42 + (z ** 9) / 216
+        return 2 * erf / (pi ** 0.5)
+
+    def cdf(self, x):
+        """
+        calculates the value of the CDF for a given x-value
+        """
+
+        e = Normal.e
+        x = (x - self.mean) / (self.stddev * (2 ** 0.5))
+        return (1 + self._erf(x)) / 2
