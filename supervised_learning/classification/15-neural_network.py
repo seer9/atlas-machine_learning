@@ -87,7 +87,7 @@ class NeuralNetwork:
         if verbose:
             print("Cost after {} iterations: {}".format(iterations, cost))
         if graph:
-            plt.plot(range(0, iterations + 1, step), costs)
+            plt.plot(x, y, 'b-')
             plt.xlabel('iteration')
             plt.ylabel('cost')
             plt.title('Training Cost')
