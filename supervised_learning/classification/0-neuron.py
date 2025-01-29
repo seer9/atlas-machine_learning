@@ -1,21 +1,18 @@
 #!/usr/bin/env python3
-import numpy as np
 """
 this module containing the initialization if a single neuron
-
-Classes:
-    Neuron: the neuron class to initialize a single neuron
 """
+import numpy as np
 
 
 class Neuron:
     """
-    Represents a single neuron performing binary classification
+    Represents a single neuron
     """
 
     def __init__(self, nx):
         """
-        Initialize the neuron
+        Initialize the neuron class
 
         Parameters:
         nx (int): The number of input features to the neuron
