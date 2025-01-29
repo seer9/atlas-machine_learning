@@ -8,16 +8,16 @@ class DeepNeuralNetwork:
 
     def __init__(self, nx, layers):
         """constructor module"""
-            
+
         if not isinstance(nx, int):
-                raise TypeError("nx must be an integer")
+            raise TypeError("nx must be an integer")
         if nx < 1:
-                raise ValueError("nx must be a positive integer")
-        if not isinstance(layers, list):
-                raise TypeError("layers must be a list of positive integers")
+            raise ValueError("nx must be a positive integer")
+        if not isinstance(layers, list) or not layers:
+            raise TypeError("layers must be a list of positive integers")
         if len(layers) < 1:
-                raise TypeError("layers must be a list of positive integers")
-    
+            raise TypeError("layers must be a list of positive integers")
+
         """the layers of the network"""
         self.L = len(layers)
         self.cache = {}
