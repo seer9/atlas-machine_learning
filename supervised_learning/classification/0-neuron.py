@@ -8,6 +8,7 @@ class Neuron:
     """set it to look for a positive integer"""
     def __init__(self, nx):
 
+        """looks for a positive integer"""
         if not isinstance(nx, int):
             raise TypeError("nx must be an integer")
         elif nx < 1:
