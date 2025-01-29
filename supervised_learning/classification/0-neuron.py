@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 import numpy as np
-"""this module containing the initialization if a single neuron"""
+"""
+this module containing the initialization if a single neuron
+
+Classes:
+    Neuron: the neuron class to initialize a single neuron
+"""
 
 
 class Neuron:
