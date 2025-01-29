@@ -34,32 +34,32 @@ class NeuralNetwork:
         self.__A2 = 1 / (1 + np.exp(-Z2))
 
         return (self.A1, self.A2)
-    
+
     @property
     def W1(self):
         """private weights 1"""
         return self.__W1
-    
+
     @property
     def b1(self):
         """private bias 1"""
         return self.__b1
-    
+
     @property
     def A1(self):
         """private output 1"""
         return self.__A1
-    
+
     @property
     def W2(self):
         """private weights 2"""
         return self.__W2
-    
+
     @property
     def b2(self):
         """private bias 2"""
         return self.__b2
-    
+
     @property
     def A2(self):
         """private output 2"""

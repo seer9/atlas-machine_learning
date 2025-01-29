@@ -34,45 +34,45 @@ class NeuralNetwork:
         self.__A2 = 1 / (1 + np.exp(-Z2))
 
         return (self.A1, self.A2)
-    
+
     def cost(self, Y, A):
         """calculates the cost of the model using logistic regression"""
         m = Y.shape[1]
         cost = -1 / m * np.sum(Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A))
         return (cost)
-    
+
     def evaluate(self, X, Y):
         """evaluates the neural network's predictions"""
         A1, A2 = self.forward_prop(X)
         cost = self.cost(Y, A2)
         prediction = np.round(A2).astype(int)
         return (prediction, cost)
-    
+
     @property
     def W1(self):
         """private weights 1"""
         return self.__W1
-    
+
     @property
     def b1(self):
         """private bias 1"""
         return self.__b1
-    
+
     @property
     def A1(self):
         """private output 1"""
         return self.__A1
-    
+
     @property
     def W2(self):
         """private weights 2"""
         return self.__W2
-    
+
     @property
     def b2(self):
         """private bias 2"""
         return self.__b2
-    
+
     @property
     def A2(self):
         """private output 2"""
