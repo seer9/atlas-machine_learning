@@ -5,10 +5,19 @@ import numpy as np
 
 class Neuron:
 
-    """set it to look for a positive integer"""
+    """represents a single neuron"""
     def __init__(self, nx):
 
-        """looks for a positive integer"""
+        """
+        Initialize the neuron
+
+        Parameters:
+        nx (int): The number of input features to the neuron
+
+        Raises:
+        TypeError: If nx is not an integer
+        ValueError: If nx is less than 1
+        """
         if not isinstance(nx, int):
             raise TypeError("nx must be an integer")
         elif nx < 1:
