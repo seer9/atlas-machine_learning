@@ -26,7 +26,7 @@ class NeuralNetwork:
         self.__A2 = 0
 
     def forward_prop(self, X):
-        """calculates the forward propagation of the neural network"""
+        """the forward propagation of the neural network"""
 
         Z1 = np.matmul(self.W1, X) + self.b1
         self.__A1 = 1 / (1 + np.exp(-Z1))
@@ -36,7 +36,7 @@ class NeuralNetwork:
         return (self.A1, self.A2)
 
     def cost(self, Y, A):
-        """calculates the cost of the model using logistic regression"""
+        """the cost of the model using logistic regression"""
         m = Y.shape[1]
         cost = -1 / m * np.sum(Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A))
         return (cost)
@@ -62,7 +62,8 @@ class NeuralNetwork:
         self.__W1 = self.W1 - alpha * dw1.T
         self.__b1 = self.b1 - alpha * db1
 
-    def train(self, X, Y, iterations=5000, alpha=0.05, verbose=True, graph=True, step=100):
+    def train(self, X, Y, iterations=5000, alpha=0.05, verbose=True,
+              graph=True, step=100):
         """trains the neural network"""
         if not isinstance(iterations, int):
             raise TypeError("iterations must be an integer")
@@ -86,7 +87,7 @@ class NeuralNetwork:
         if verbose:
             print("Cost after {} iterations: {}".format(iterations, cost))
         if graph:
-            plt.plot(x, y, 'b-')
+            plt.plot(range(0, iterations + 1, step), costs)
             plt.xlabel('iteration')
             plt.ylabel('cost')
             plt.title('Training Cost')
@@ -97,27 +98,27 @@ class NeuralNetwork:
     def W1(self):
         """private weights 1"""
         return self.__W1
-    
+
     @property
     def b1(self):
         """private bias 1"""
         return self.__b1
-    
+
     @property
     def A1(self):
         """private output 1"""
         return self.__A1
-    
+
     @property
     def W2(self):
         """private weights 2"""
         return self.__W2
-    
+
     @property
     def b2(self):
         """private bias 2"""
         return self.__b2
-    
+
     @property
     def A2(self):
         """private output 2"""
