@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-import numpy as np
 """this module containing the initialization if a single neuron"""
+import numpy as np
 
 
 class Neuron:
@@ -32,7 +32,7 @@ class Neuron:
     def A(self):
         """private output"""
         return self.__A
-    
+
     def forward_prop(self, X):
         """the forward propagation of the neuron"""
         z = np.matmul(self.__W, X) + self.__b
