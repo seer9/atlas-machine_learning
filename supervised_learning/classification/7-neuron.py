@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-import numpy as np
 """this module containing the initialization if a single neuron"""
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 class Neuron:
@@ -66,11 +67,11 @@ class Neuron:
 
         if not isinstance(iterations, int):
             raise TypeError("iterations must be an integer")
-        elif iterations < 1:
+        elif iterations <= 0:
             raise ValueError("iterations must be a positive integer")
-        elif not isinstance(alpha, (int, float)):
+        if not isinstance(alpha, (int, float)):
             raise TypeError("alpha must be a number")
-        elif alpha < 0:
+        elif alpha <= 0:
             raise ValueError("alpha must be positive")
         elif verbose or graph:
             if not isinstance(step, int):
@@ -89,7 +90,6 @@ class Neuron:
             if i < iterations:
                 self.gradient_descent(X, Y, A, alpha)
         if graph:
-            import matplotlib.pyplot as plt
             plt.plot(costs, 'b-')
             plt.xlabel("iteration")
             plt.ylabel("cost")
