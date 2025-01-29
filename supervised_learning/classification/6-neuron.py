@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-import numpy as np
 """this module containing the initialization if a single neuron"""
+import numpy as np
 
 
 class Neuron:
@@ -65,6 +65,8 @@ class Neuron:
         """the training of the neuron"""
         if not isinstance(iterations, int):
             raise TypeError("iterations must be an integer")
+        elif not isinstance(alpha, (int, float)):
+            raise TypeError("alpha must be a number")
         elif iterations <= 0:
             raise ValueError("iterations must be a positive integer")
         elif not isinstance(alpha, (int, float)):
