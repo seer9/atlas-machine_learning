@@ -9,10 +9,11 @@ Classes:
 
 
 class Neuron:
+    """
+    Represents a single neuron performing binary classification
+    """
 
-    """represents a single neuron"""
     def __init__(self, nx):
-
         """
         Initialize the neuron
 
