@@ -37,6 +37,8 @@ class DeepNeuralNetwork:
             raise TypeError("alpha must be a number")
         elif alpha <= 0:
             raise ValueError("alpha must be positive")
+        if isinstance(alpha, float) and not alpha.is_integer():
+            raise TypeError("alpha must be an integer")
 
         for _ in range(iterations):
             A, cache = self.forward_prop(X)
