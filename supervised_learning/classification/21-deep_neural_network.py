@@ -25,7 +25,7 @@ class DeepNeuralNetwork:
             self.__weights[f'b{i}'] = np.zeros((size, 1))
 
     def forward_prop(self, X):
-        """forward propagation of the network"""
+        """Forward propagation of the network"""
         self.__cache['A0'] = X
 
         for i in range(1, self.L + 1):
@@ -50,7 +50,7 @@ class DeepNeuralNetwork:
         return np.round(A).astype(int), self.cost(Y, A)
 
     def gradient_descent(self, Y, cache, alpha=0.05):
-        """gradient descent for the network"""
+        """gradient descent in the network"""
         m = Y.shape[1]
         dZ = self.cache[f'A{self.L}'] - Y
 
@@ -68,15 +68,15 @@ class DeepNeuralNetwork:
 
     @property
     def L(self):
-        """Getter for L"""
+        """Getter method L"""
         return self.__L
 
     @property
     def cache(self):
-        """Getter for cache"""
+        """Getter method cache"""
         return self.__cache
 
     @property
     def weights(self):
-        """Getter for weights"""
+        """Getter method weights"""
         return self.__weights
