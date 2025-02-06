@@ -33,8 +33,8 @@ class DeepNeuralNetwork:
             raise TypeError("iterations must be an integer")
         elif iterations < 1:
             raise ValueError("iterations must be a positive integer")
-        if not isinstance(alpha, (int, float) and not alpha.is_integer()):
-            raise TypeError("alpha must be a number")
+        if not isinstance(alpha, (float)) and not alpha.is_integer():
+            raise TypeError("alpha must be a float")
         elif alpha <= 0:
             raise ValueError("alpha must be positive")
 
