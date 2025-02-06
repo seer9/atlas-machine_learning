@@ -19,7 +19,8 @@ class DeepNeuralNetwork:
 
         prev = nx
         for i, size in enumerate(layers, 1):
-            self.__weights[f'W{i}'] = np.random.randn(size, prev) * np.sqrt(2 / prev)
+            self.__weights[f'W{i}'] = (
+                np.random.randn(size, prev) * np.sqrt(2 / prev))
             self.__weights[f'b{i}'] = np.zeros((size, 1))
             prev = size
 
