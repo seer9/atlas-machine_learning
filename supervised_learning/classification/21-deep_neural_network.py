@@ -21,7 +21,8 @@ class DeepNeuralNetwork:
             size = layers[i - 1]
             prev = nx if i == 1 else layers[i - 2]
 
-            self.__weights[f'W{i}'] = np.random.randn(size, prev) * np.sqrt(2 / prev)
+            self.__weights[f'W{i}'] = (
+                np.random.randn(size, prev) * np.sqrt(2 / prev))
             self.__weights[f'b{i}'] = np.zeros((size, 1))
 
     def forward_prop(self, X):
