@@ -17,12 +17,11 @@ class DeepNeuralNetwork:
         self.__cache = {}
         self.__weights = {}
 
-        for i in range(1, self.__L + 1):
-            size = layers[i - 1]
-            prev = nx if i == 1 else layers[i - 2]
-
+        prev = nx
+        for i, size in enumerate(layers, 1):
             self.__weights[f'W{i}'] = np.random.randn(size, prev) * np.sqrt(2 / prev)
             self.__weights[f'b{i}'] = np.zeros((size, 1))
+            prev = size
 
     @property
     def L(self):
