@@ -33,12 +33,10 @@ class DeepNeuralNetwork:
             raise TypeError("iterations must be an integer")
         elif iterations < 1:
             raise ValueError("iterations must be a positive integer")
-        if not isinstance(alpha, (int, float)):
+        if not isinstance(alpha, (int, float) and not alpha.is_integer()):
             raise TypeError("alpha must be a number")
         elif alpha <= 0:
             raise ValueError("alpha must be positive")
-        if isinstance(alpha, float) and not alpha.is_integer():
-            raise TypeError("alpha must be an integer")
 
         for _ in range(iterations):
             A, cache = self.forward_prop(X)
