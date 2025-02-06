@@ -10,8 +10,7 @@ class DeepNeuralNetwork:
         """constructor method"""
         if not isinstance(nx, int) or nx < 1:
             raise ValueError("nx must be a positive integer")
-        if not isinstance(layers, list) or len(layers) == 0 or not all(
-            isinstance(x, int) and x > 0 for x in layers):
+        if not isinstance(layers, list) or len(layers) == 0:
             raise TypeError("layers must be a list of positive integers")
 
         self.__L = len(layers)
@@ -27,7 +26,7 @@ class DeepNeuralNetwork:
             self.__weights[f'b{i}'] = np.zeros((size, 1))
 
     def forward_prop(self, X):
-        """forward propagation of the network"""
+        """Forward propagation of the network"""
         self.__cache['A0'] = X
 
         for i in range(1, self.L + 1):
