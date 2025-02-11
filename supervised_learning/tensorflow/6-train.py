@@ -37,7 +37,7 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
         tf.add_to_collection(k, v)
 
     saver = tf.train.Saver()
-    
+
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
         for i in range(iterations + 1):
