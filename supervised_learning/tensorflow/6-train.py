@@ -37,16 +37,16 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
         for i in range(iterations + 1):
-            loss_t, accuracy_t = sess.run(
-                [loss, accuracy], feed_dict={x: X_train, y: Y_train})
-            loss_v, accuracy_v = sess.run(
-                [loss, accuracy], feed_dict={x: X_valid, y: Y_valid})
+            loss_t = sess.run(loss, feed_dict={x: X_train, y: Y_train})
+            acc_t = sess.run(accuracy, feed_dict={x: X_train, y: Y_train})
+            loss_v = sess.run(loss, feed_dict={x: X_valid, y: Y_valid})
+            acc_v = sess.run(accuracy, feed_dict={x: X_valid, y: Y_valid})
             if i % 100 == 0 or i == iterations:
                 print("After {} iterations:".format(i))
                 print("\tTraining Cost: {}".format(loss_t))
-                print("\tTraining Accuracy: {}".format(accuracy_t))
+                print("\tTraining Accuracy: {}".format(acc_t))
                 print("\tValidation Cost: {}".format(loss_v))
-                print("\tValidation Accuracy: {}".format(accuracy_v))
+                print("\tValidation Accuracy: {}".format(acc_v))
             if i < iterations:
                 sess.run(train_op, feed_dict={x: X_train, y: Y_train})
         return saver.save(sess, save_path)
