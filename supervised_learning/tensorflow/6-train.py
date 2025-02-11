@@ -17,7 +17,7 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
     param X_train: numpy.ndarray of shape (m, 784)
     param Y_train: one-hot numpy.ndarray of shape (m, 10)
     param X_valid: numpy.ndarray of shape (m, 784)
-    param Y_valid: numpy.ndarray of shape (m, 10)
+    param Y_valid: one-hot numpy.ndarray of shape (m, 10)
     param layer_sizes: the number of nodes in each layer of the network
     param activations: the activation functions for each layer of the network
     param alpha: the learning rate
@@ -49,4 +49,6 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
                 print("\tValidation Accuracy: {}".format(acc_v))
             if i < iterations:
                 sess.run(train_op, feed_dict={x: X_train, y: Y_train})
-        return saver.save(sess, save_path)
+        save_path = saver.save(sess, save_path)
+        print("Model saved in path: {}".format(save_path))
+        return save_path
