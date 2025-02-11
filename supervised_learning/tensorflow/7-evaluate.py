@@ -21,10 +21,10 @@ def evaluate(X, Y, save_path):
         y_pred = tf.get_collection('y_pred')[0]
         loss = tf.get_collection('loss')[0]
         accuracy = tf.get_collection('accuracy')[0]
-        
+
         feed_dict = {x: X, y: Y}
         prediction = sess.run(y_pred, feed_dict)
         accuracy = sess.run(accuracy, feed_dict)
         loss = sess.run(loss, feed_dict)
-        
+
         return prediction, accuracy, loss
