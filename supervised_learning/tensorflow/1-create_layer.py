@@ -2,7 +2,7 @@
 """
 creating layers with tensorflow
 """
-import tensorflow.compat.v1 as tf
+import tensorflow as tf
 
 
 def create_layer(prev, n, activation):
@@ -12,9 +12,8 @@ def create_layer(prev, n, activation):
     param activation: activation function that the layer should use
     return: tensor output of the layer
     """
-    initializer = tf.contrib.layers.variance_scaling_initializer(
-        mode="FAN_AVG")
-    layer = tf.layers.Dense(
-        units=n, activation=activation,
+    initializer = tf.keras.initializers.VarianceScaling(
+        scale=1.0, mode="fan_avg", distribution="uniform")
+    layer = tf.keras.layers.Dense(units=n, activation=activation,
         kernel_initializer=initializer, name='layer')
     return layer(prev)
