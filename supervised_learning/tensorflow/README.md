@@ -1,0 +1,1 @@
+In this module ill be learning how to use the open source framework TensorFlow for machine learning.
