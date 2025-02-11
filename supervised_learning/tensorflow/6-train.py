@@ -25,15 +25,19 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
     param save_path: designates where to save the model
     return: the path where the model was saved
     """
-    m, nx = X_train.shape
-    _, classes = Y_train.shape
-    x, y = create_placeholders(nx, classes)
+    x, y = create_placeholders(X_train.shape[1], Y_train.shape[1])
     y_pred = forward_prop(x, layer_sizes, activations)
-    loss = calculate_loss(y, y_pred)
     accuracy = calculate_accuracy(y, y_pred)
+    loss = calculate_loss(y, y_pred)
     train_op = create_train_op(loss, alpha)
 
+    params = {'x': x, 'y': y, 'y_pred': y_pred, 'accuracy': accuracy,
+              'loss': loss, 'train_op': train_op}
+    for k, v in params.items():
+        tf.add_to_collection(k, v)
+
     saver = tf.train.Saver()
+    
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
         for i in range(iterations + 1):
@@ -49,4 +53,5 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
                 print("\tValidation Accuracy: {}".format(acc_v))
             if i < iterations:
                 sess.run(train_op, feed_dict={x: X_train, y: Y_train})
-        return saver.save(sess, save_path)
+        save_path = saver.save(sess, save_path)
+    return save_path
