@@ -1,0 +1,1 @@
+In this module ill be learning optimization in machine learning and apply the processes of adjusting the parameters of a given model to reduce the errors or loss factor.
