@@ -15,5 +15,3 @@ def batch_norm(Z, gamma, beta, epsilon):
     """scale and shift"""
     Z_tilda = gamma * Z_norm + beta
     return Z_tilda
-
-
