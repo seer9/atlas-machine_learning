@@ -12,10 +12,10 @@ def create_batch_norm_layer(prev, n, activation):
     
     Z = layer(prev)
     
-    gamma = tf.Variable(tf.constant(1.0, shape=[n]), name='gamma')
-    beta = tf.Variable(tf.constant(0.0, shape=[n]), name='beta')
+    gamma = tf.Variable(initial_value=tf.ones((1, n)), name='gamma')
+    beta = tf.Variable(initial_value=tf.zeros((1, n)), name='beta')
     
-    epsilon = 1e-8
+    epsilon = 1e-7
     
     mean, variance = tf.nn.moments(Z, axes=0)
     
