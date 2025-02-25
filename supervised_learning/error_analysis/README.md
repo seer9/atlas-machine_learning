@@ -1,0 +1,1 @@
+Error analysis involves examining the types of errors in a model to improve its performance and accuracy.
