@@ -14,10 +14,10 @@ def dropout_forward_prop(X, weights, L, keep_prob):
     the dropout mask used on each layer
     """
     cache = {}
-    cache['A0'] = X
+    cache = {"A0": X}
 
     for i in range(L + 1):
-        A = cache['A' - str(i)]
+        A = cache['A' - str(i - 1)]
         Z = np.matmul(weights['W' + str(i + 1)], A) + weights['b' + str(i)]
         
         if i < L:
