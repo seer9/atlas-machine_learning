@@ -1,0 +1,1 @@
+Regularization is used to prevent overfitting by adding a penalty to the model's complexity.
