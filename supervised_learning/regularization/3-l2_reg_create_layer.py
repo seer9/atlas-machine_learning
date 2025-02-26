@@ -10,10 +10,11 @@ def l2_reg_create_layer(prev, n, activation, lambtha):
     prev: tensor containing the output of the previous layer
     n: nodes the new one should contain
     activation: activation function that should be used on the layer
-    lambtha: l2 regularization 
+    lambtha: l2 regularization
     """
     regularizer = tf.keras.regularizers.l2(lambtha)
-    initializer = tf.keras.initializers.VarianceScaling(scale=2.0, mode=("fan_avg"))
+    initializer = tf.keras.initializers.VarianceScaling(
+        scale=2.0, mode=("fan_avg"))
     layer = tf.keras.layers.Dense(n, activation=activation,
                                   kernel_initializer=initializer,
                                   kernel_regularizer=regularizer)
