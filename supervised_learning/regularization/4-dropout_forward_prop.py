@@ -16,7 +16,7 @@ def dropout_forward_prop(X, weights, L, keep_prob):
     cache = {}
     cache = {"A0": X}
 
-    for i in range(L + 1):
+    for i in range(1, L + 1):
         A = cache['A' - str(i - 1)]
         Z = np.matmul(weights['W' + str(i + 1)], A) + weights['b' + str(i)]
         
