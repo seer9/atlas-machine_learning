@@ -10,4 +10,4 @@ def l2_reg_cost(cost, model):
     cost: a tensor containing the cost of the network without L2 regularization
     model: a Keras model that includes layers with L2 regularization.
     """
-    return cost + model.losses
+    return (cost + model.losses)
