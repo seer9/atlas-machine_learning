@@ -27,7 +27,8 @@ def dropout_forward_prop(X, weights, L, keep_prob):
             A /= keep_prob
             cache['D' + str(i)] = D
         else:
-            A = np.exp(Z) / np.sum(np.exp(Z), axis=0, keepdims=True)
+            exp_Z = np.exp(Z - np.max(Z, axis=0, keepdims=True))
+            A = exp_Z / np.sum(exp_Z, axis=0, keepdims=True)
 
         cache['A' + str(i)] = A
     
