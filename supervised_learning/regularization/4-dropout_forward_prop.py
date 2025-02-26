@@ -22,10 +22,10 @@ def dropout_forward_prop(X, weights, L, keep_prob):
         
         if i < L:
             A = np.tanh(Z)
-            D = np.random.rand(A.shape[0], A.shape[1]) < keep_prob
+            D = np.random.binomial(1, keep_prob, size=A.shape)
+            cache[f"D{i}"] = D
             A = np.multiply(A, D)
             A /= keep_prob
-            cache['D' + str(i)] = D
         else:
             exp_Z = np.exp(Z - np.max(Z, axis=0, keepdims=True))
             A = exp_Z / np.sum(exp_Z, axis=0, keepdims=True)
