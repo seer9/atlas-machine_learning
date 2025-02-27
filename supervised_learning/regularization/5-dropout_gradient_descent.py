@@ -17,16 +17,19 @@ def dropout_gradient_descent(Y, weights, cache, alpha, keep_prob, L):
     """
     m = Y.shape[1]
     dZ = cache["A" + str(L)] - Y
+
     for i in range(L, 0, -1):
-        A = cache["A" + str(i - 1)]
-        W = weights["W" + str(i)]
-        dW = np.matmul(dZ, A.T) / m
-        db = np.sum(dZ, axis=1, keepdims=True) / m
-        dA = np.matmul(W.T, dZ)
+        prevA = cache["A" + str(i - 1)]
+    
+
+        dW = (1 / m) * np.matmul(dZ, prevA.T)
+        db = (1 / m) * np.sum(dZ, axis=1, keepdims=True)
+    
         if i > 1:
-            dA = dA * cache["D" + str(i - 1)]
-            dA = dA / keep_prob
-            dA = dA * (1 - A ** 2)
-        dZ = dA
-        weights["W" + str(i)] = weights["W" + str(i)] - alpha * dW
-        weights["b" + str(i)] = weights["b" + str(i)] - alpha * db
+            dA = np.matmul(weights["W" + str(i)].T, dZ)
+            dA *= cache["D" + str(i - 1)]
+            dA /= keep_prob
+            dZ = dA * (1 - (prevA ** 2))
+
+        weights["W" + str(i)] -= alpha * dW
+        weights["b" + str(i)] -= alpha * db
