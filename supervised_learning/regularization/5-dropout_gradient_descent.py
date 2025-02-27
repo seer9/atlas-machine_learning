@@ -5,15 +5,13 @@ import numpy as np
 
 def dropout_gradient_descent(Y, weights, cache, alpha, keep_prob, L):
     """
-    updates the weights of a neural network with Dropout regularization
-    :param Y: one-hot np.ndarray of shape (classes, m) that contains the
-    correct labels for the data
-    :param weights: dictionary of weights and biases of the neural network
-    :param cache: dictionary of outputs of each layer of the neural network
+    updates the weights w Dropout regularization
+    :param Y: one-hot shape that contains the correct labels for the data
+    :param weights: weights and biases 
+    :param cache: outputs of each layer
     :param alpha: learning rate
     :param keep_prob: probability that a node will be kept
-    :param L: number of layers of the network
-    :return: None
+    :param L: number of layers
     """
     m = Y.shape[1]
     dZ = cache["A" + str(L)] - Y

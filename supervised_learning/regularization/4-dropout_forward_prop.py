@@ -5,11 +5,11 @@ import numpy as np
 
 def dropout_forward_prop(X, weights, L, keep_prob):
     """
-    conducts forward propagation using Dropout
-    :param X: np.ndarray (nx, m) of input data
-    :param weights: dictionary of weights and biases of the neural network
-    :param L: number of layers in the network
-    :param keep_prob: probability that a node will be kept
+    forward propagation using Dropout
+    :param X: input data
+    :param weights: dictionary of weights and biases 
+    :param L: number of layers
+    :param keep_prob: chance that a node will be kept
     :return: dictionary containing the output of each layer and
     the dropout mask used on each layer
     """
