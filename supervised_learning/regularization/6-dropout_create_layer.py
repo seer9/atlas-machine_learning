@@ -3,7 +3,7 @@
 import tensorflow as tf
 
 
-def dropout_create_layer(prev, n, activation, keep_prob,training=True):
+def dropout_create_layer(prev, n, activation, keep_prob, training=True):
     """
     creates a layer using dropout
     :param prev: tensor of the previous layer
@@ -20,6 +20,6 @@ def dropout_create_layer(prev, n, activation, keep_prob,training=True):
     out = layer(prev)
 
     if training:
-       drop = tf.keras.layers.Dropout(rate=(1 - keep_prob))
-       output = drop(out, training=training)
+        drop = tf.keras.layers.Dropout(rate=(1 - keep_prob))
+        output = drop(out, training=training)
     return output
