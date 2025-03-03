@@ -3,18 +3,21 @@
 import tensorflow.keras as K
 
 
-def train_model(network, data, labels, batch_size, epochs, validation_data=None, early_stopping=False, patience=0, learning_rate_decay=False, alpha=0.1, decay_rate=1, verbose=True, shuffle=False):
+def train_model(network, data, labels, batch_size, epochs,
+                validation_data=None, early_stopping=False, patience=0,
+                learning_rate_decay=False, alpha=0.1, decay_rate=1,
+                verbose=True, shuffle=False):
     """
     network: model
     data: input data
     labels: labels of data
     batch_size: size of the batch
     epochs: number of passes through data
-    validation_data: data to validate the model with
-    early_stopping: boolean indicating whether early stopping should be used
+    validation_data: data to validate the model
+    early_stopping: determines the early stopping that is used
     patience: patience used for early stopping
-    learning_rate_decay: boolean indicating whether learning rate decay should be used
-    alpha: initial learning rate
+    learning_rate_decay: determines the learning rate decay thats used
+    alpha: learning rate
     decay_rate: decay rate
     verbose: determines if output should is printed during training
     shuffle: decides whether to shuffle the batches every epoch
