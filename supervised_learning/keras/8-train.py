@@ -3,7 +3,10 @@
 import tensorflow.keras as K
 
 
-def train_model(network, data, labels, batch_size, epochs, validation_data=None, early_stopping=False, patience=0, learning_rate_decay=False, alpha=0.1, decay_rate=1, save_best=False, filepath=None, verbose=True, shuffle=False):
+def train_model(network, data, labels, batch_size, epochs,
+                validation_data=None, early_stopping=False, patience=0,
+                learning_rate_decay=False, alpha=0.1, decay_rate=1,
+                save_best=False, filepath=None, verbose=True, shuffle=False):
     """
     network: model
     data: input data
@@ -33,7 +36,7 @@ def train_model(network, data, labels, batch_size, epochs, validation_data=None,
             return (alpha / (1 + decay_rate * epoch))
         callback.append(K.callbacks.LearningRateScheduler(
             scheduler, verbose=1))
-    
+
     if save_best and filepath:
         callback.append(K.callbacks.ModelCheckpoint(
             filepath=filepath,
