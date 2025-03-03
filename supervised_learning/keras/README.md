@@ -1,0 +1,1 @@
+what i understand is that training with keras involves a neural network architecture, compiling the model, and fitting it to the data.
