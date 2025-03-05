@@ -1,0 +1,1 @@
+In this module, ill be learning all about convolution in CNNs and filters to input data to extract features. Also learning about pooling and how it reduces the dimensionality of the data by summarizing regions, helping to teach me how to make models more computationally efficient and robust to variations.
