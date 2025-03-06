@@ -27,6 +27,7 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
     c = images.shape[3]
     kh, kw = kernel.shape[0], kernel.shape[1]
     sh, sw = stride[0], stride[1]
+    ph, pw = 0, 0
 
     """convultion types"""
     if padding == 'same':
