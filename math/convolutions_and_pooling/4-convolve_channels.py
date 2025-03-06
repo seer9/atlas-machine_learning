@@ -4,12 +4,23 @@ import numpy as np
 
 
 def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
-    """
-    convolution on images with channels
+    """performs a convolution on images with channels
     Args:
-        images: numpy.ndarray with shape (m, h, w, c) containing multiple images
-
-    """
+        images: shape containing multiple images
+                m: number of images
+                h: height in pixels
+                w: width in pixels
+                c: number of channels 
+        kernel: contains the kernel/filter for the convolution
+                kh: height of the kernel
+                kw: width of the kernel
+        padding: string that indicates the type of padding
+                same: same padding
+                valid: valid padding
+        stride: tuple of (sh, sw) containing the strides for the convolution
+                sh: stride for the height
+                sw: stride for the width
+        Returns: numpy.ndarray containing the convolved images"""
     m = images.shape[0]
     h = images.shape[1]
     w = images.shape[2]
