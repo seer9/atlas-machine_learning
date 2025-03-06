@@ -55,5 +55,5 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
                 i * sh:((i * sh) + kh),
                 j * sw:((j * sw) + kw),]
             conv[image, i, j] = np.sum(images_slide * kernel,
-                                   axis=(1, 2, 3))
+                                       axis=(1, 2, 3))
     return conv
