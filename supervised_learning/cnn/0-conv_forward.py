@@ -25,8 +25,7 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     sh, sw = stride
 
     """padding"""
-    ph = 0
-    pw = 0
+    pw, ph = padding[1], padding[0]
 
     """conditionial for padding"""
     if padding == 'same':
