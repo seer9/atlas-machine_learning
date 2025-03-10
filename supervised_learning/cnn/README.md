@@ -1,0 +1,1 @@
+cnn's algorithms designed for processing images, using convolutional layers to automatically learn features.
