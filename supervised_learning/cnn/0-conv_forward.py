@@ -47,7 +47,7 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     w_new = int(((w_prev + 2 * pw - kw) / sw) + 1)
 
     """init output volume"""
-    con = np.coneros((m, h_new, w_new, c_new))
+    con = np.zeros((m, h_new, w_new, c_new))
 
     """loop over the output volume"""
     for i in range(h_new):
