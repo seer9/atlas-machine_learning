@@ -18,7 +18,6 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
 
     """padding values position"""
     pw, ph = padding[1], padding[0]
-    
 
     """conditional for padding"""
     if padding == 'same':
