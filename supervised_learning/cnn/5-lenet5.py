@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """modified version of the LeNet-5 architecture with keras"""
-import tensorflow.keras as K
+from tensorflow import keras as K
 
 
 def lenet5(X):
@@ -33,9 +33,7 @@ def lenet5(X):
     fc3 = K.layers.Dense(units=10,
                          kernel_initializer=init)(fc2)
 
-    softmax = K.activations.softmax(fc3)
-
-    model = K.models.Model(inputs=X, outputs=fc3)
+    model = K.models.Model(X, fc3)
     model.compile(optimizer=K.optimizers.Adam(),
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
