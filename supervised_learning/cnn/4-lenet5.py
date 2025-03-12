@@ -41,5 +41,6 @@ def lenet5(x, y):
     adam_op = tf.train.AdamOptimizer().minimize(loss)
     correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_pred, 1))
     acc = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+    softmax = tf.nn.softmax(y_pred)
 
-    return y_pred, adam_op, loss, acc
+    return softmax, adam_op, loss, acc
