@@ -7,7 +7,7 @@ def lenet5(X):
     """
     function that builds a version of the LeNet-5 architecture
     """
-    init = K.initializers.he_normal(seed=.5)
+    init = K.initializers.he_normal(seed=3)
 
     conv1 = K.layers.Conv2D(filters=6, kernel_size=(5, 5),
                             padding='same', activation='relu',
