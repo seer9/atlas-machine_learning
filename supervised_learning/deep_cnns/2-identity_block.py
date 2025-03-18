@@ -18,7 +18,6 @@ def identity_block(A_prev, filters):
 
     he_init = K.initializers.HeNormal(seed=0)
 
-    # First 1x1 convolution
     X = K.layers.Conv2D(filters=F11, kernel_size=(1, 1), padding='same',
                         kernel_initializer=he_init)(A_prev)
     X = K.layers.BatchNormalization(axis=3)(X)
