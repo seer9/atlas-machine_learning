@@ -3,7 +3,7 @@
 from tensorflow import keras as K
 
 
-def projection_block(A_prev, filters, s):
+def projection_block(A_prev, filters, s=2):
     """
     Builds a projection block as described.
 
@@ -14,7 +14,7 @@ def projection_block(A_prev, filters, s):
     Returns:
         The activated output of the projection block.
     """
-    F11, F3, F12 = filters
+    [F11, F3, F12] = filters
 
     he_init = K.initializers.HeNormal(seed=0)
 
