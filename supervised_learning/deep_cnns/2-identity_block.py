@@ -16,7 +16,6 @@ def identity_block(A_prev, filters):
     """
     [F11, F3, F12] = filters
 
-    # He normal initializer with seed set to 0
     he_init = K.initializers.HeNormal(seed=0)
 
     # First 1x1 convolution
@@ -25,18 +24,15 @@ def identity_block(A_prev, filters):
     X = K.layers.BatchNormalization(axis=3)(X)
     X = K.layers.Activation('relu')(X)
 
-    # 3x3 convolution
     X = K.layers.Conv2D(filters=F3, kernel_size=(3, 3), padding='same',
                         kernel_initializer=he_init)(X)
     X = K.layers.BatchNormalization(axis=3)(X)
     X = K.layers.Activation('relu')(X)
 
-    # Second 1x1 convolution
     X = K.layers.Conv2D(filters=F12, kernel_size=(1, 1), padding='same',
                         kernel_initializer=he_init)(X)
     X = K.layers.BatchNormalization(axis=3)(X)
 
-    # Add shortcut (identity connection)
     X = K.layers.Add()([X, A_prev])
     X = K.layers.Activation('relu')(X)
 
