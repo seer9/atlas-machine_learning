@@ -19,42 +19,28 @@ def densenet121(growth_rate=32, compression=1.0):
     X = K.Input(shape=(224, 224, 3))
     he_init = K.initializers.he_normal(seed=None)
 
-    # Initial Convolution
-    X = K.layers.BatchNormalization()(X)
-    X = K.layers.Activation('relu')(X)
-    X = K.layers.Conv2D(
-        filters=64, kernel_size=7, padding='same',
-        strides=2, kernel_initializer=he_init)(X)
-    X = K.layers.MaxPooling2D(
-        pool_size=3, strides=2, padding='same')(X)
+    x = K.layers.BatchNormalization()(X)
+    x = K.layers.Activation('relu')(x)
+    x = K.layers.Conv2D(
+        filters=64, kernel_size=7, strides=2,
+        padding='same', kernel_initializer=he_init)(x)
+    x = K.layers.MaxPooling2D(
+        pool_size=3, strides=2, padding='same')(x)
+    
+    x, nb_filters = dense_block(x, 64, growth_rate, 6)
+    x, nb_filters = transition_layer(x, nb_filters, compression)
 
-    # Dense Block 1
-    X, nb_filters = dense_block(X, 64, growth_rate, 6)
-    # Transition Layer 1
-    X, nb_filters = transition_layer(X, nb_filters, compression)
+    x, nb_filters = dense_block(x, nb_filters, growth_rate, 12)
+    x, nb_filters = transition_layer(x, nb_filters, compression)
 
-    # Dense Block 2
-    X, nb_filters = dense_block(X, nb_filters, growth_rate, 12)
-    # Transition Layer 2
-    X, nb_filters = transition_layer(X, nb_filters, compression)
+    x, nb_filters = dense_block(x, nb_filters, growth_rate, 24)
+    x, nb_filters = transition_layer(x, nb_filters, compression)
 
-    # Dense Block 3
-    X, nb_filters = dense_block(X, nb_filters, growth_rate, 24)
-    # Transition Layer 3
-    X, nb_filters = transition_layer(X, nb_filters, compression)
+    x, nb_filters = dense_block(x, nb_filters, growth_rate, 16)
 
-    # Dense Block 4
-    X, nb_filters = dense_block(X, nb_filters, growth_rate, 16)
+    x = K.layers.AveragePooling2D(pool_size=7, padding='same')(x)
+    x = K.layers.Dense(1000, activation='softmax')(x)
 
-    # Global Average Pooling
-    X = K.layers.AveragePooling2D(
-        pool_size=7, padding='same')(X)
-
-    # Fully Connected Softmax Layer
-    X = K.layers.Dense(
-        units=1000, activation='softmax',
-        kernel_initializer=he_init)(X)
-
-    model = K.models.Model(inputs=X, outputs=X)
+    model = K.models.Model(inputs=X, outputs=x)
 
     return model
