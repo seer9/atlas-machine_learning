@@ -44,13 +44,12 @@ def inception_network():
     max_pool4 = K.layers.MaxPooling2D(
         pool_size=(3, 3), strides=(2, 2), padding='same')(inception7)
 
-    inception8 = inception_block(max_pool4, [256, 160, 320, 32,
-                                             128, 128])
+    inception8 = inception_block(max_pool4, [256, 160, 320, 32, 128, 128])
     inception9 = inception_block(inception8, [384, 192, 384, 48, 128, 128])
 
     avg_pool = K.layers.AveragePooling2D(
         pool_size=(7, 7), strides=(1, 1))(inception9)
-    
+
     dropout = K.layers.Dropout(0.4)(avg_pool)
 
     output = K.layers.Dense(1000, activation='softmax')(dropout)
