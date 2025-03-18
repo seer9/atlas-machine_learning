@@ -8,7 +8,7 @@ def inception_block(A_prev, filters):
     Builds an inception block.
 
     Args:
-        A_prev: The output from the previous layer.
+        A_prev: The output the previous layer.
         filters: A tuple or list containing F1, F3R, F3, F5R, F5, FPP
 
     Returns:

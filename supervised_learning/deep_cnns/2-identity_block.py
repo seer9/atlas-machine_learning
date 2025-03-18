@@ -8,7 +8,7 @@ def identity_block(A_prev, filters):
     Builds an identity block as described.
 
     Args:
-        A_prev: output from the previous layer
+        A_prev: output the previous layer
         filters: tuple or list containing F11, F3, F12.
 
     Returns:
