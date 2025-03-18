@@ -26,7 +26,7 @@ def densenet121(growth_rate=32, compression=1.0):
         padding='same', kernel_initializer=he_init)(x)
     x = K.layers.MaxPooling2D(
         pool_size=3, strides=2, padding='same')(x)
-    
+
     x, nb_filters = dense_block(x, 64, growth_rate, 6)
     x, nb_filters = transition_layer(x, nb_filters, compression)
 
