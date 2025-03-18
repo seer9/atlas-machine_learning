@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""function that builds an identity block"""
+"""function that builds an identity block."""
 from tensorflow import keras as K
 
 
