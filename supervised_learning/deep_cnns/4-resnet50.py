@@ -7,7 +7,7 @@ projection_block = __import__('3-projection_block').projection_block
 
 def resnet50():
     """builds the ResNet-50 architecture"""
-    he_init = K.initializers.he_normal(seed=None)
+    he_init = K.initializers.he_normal(seed=0)
     X = K.Input(shape=(224, 224, 3))
     x = K.layers.Conv2D(
         filters=64, kernel_size=(7, 7), strides=2,
