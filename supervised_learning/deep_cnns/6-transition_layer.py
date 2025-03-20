@@ -14,7 +14,7 @@ def transition_layer(X, nb_filters, compression):
     Returns:
         the output of the transition layer and the number of filters.
     """
-    he_init = K.initializers.he_normal()
+    he_init = K.initializers.HeNormal(seed=0)
     batch_norm = K.layers.BatchNormalization()(X)
     activation = K.layers.Activation('relu')(batch_norm)
     nb_filters = int(nb_filters * compression)
