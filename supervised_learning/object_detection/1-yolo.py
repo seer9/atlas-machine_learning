@@ -30,28 +30,24 @@ class Yolo:
         Processes the outputs of the YOLO model.
         """
         image_height, image_width = image_size
-        boxes = []
-        box_confidences = []
-        box_class_probs = []
+        boxes, box_confidences, box_class_probs = [], [], []
 
         for i, output in enumerate(outputs):
-            grid_height, grid_width, anchor_boxes, _ = output.shape
+            grid_h, grid_w, anchor_boxes, _ = output.shape
 
-            # Extract the bounding box parameters
-            tx = output[..., 0]
-            ty = output[..., 1]
-            tw = output[..., 2]
-            th = output[..., 3]
-
-            # Extract the box confidence and class probabilities
-            box_confidence = 1 / (1 + np.exp(-output[..., 4])) 
-            class_probs = 1 / (1 + np.exp(-output[..., 5:]))  
+            # Extract bounding box parameters
+            tx, ty, tw, th = output[..., 0], output[..., 1], \
+                             output[..., 2], output[..., 3]
+            box_confidence = 1 / (1 + np.exp(-output[..., 4]))[..., np.newaxis]
+            class_probs = 1 / (1 + np.exp(-output[..., 5:]))
 
             # Generate grid coordinates
-            cx = (np.arange(grid_width).reshape(1, -1, 1) + tx) / grid_width
-            cy = (np.arange(grid_height).reshape(-1, 1, 1) + ty) / grid_height
+            grid_x = np.arange(grid_w).reshape(1, grid_w, 1)
+            grid_y = np.arange(grid_h).reshape(grid_h, 1, 1)
+            cx = (grid_x + tx) / grid_w
+            cy = (grid_y + ty) / grid_h
 
-            # Calculate the width and height of the bounding boxes
+            # Calculate width and height of bounding boxes
             bw = (np.exp(tw) * self.anchors[i, :, 0]) / image_width
             bh = (np.exp(th) * self.anchors[i, :, 1]) / image_height
 
@@ -61,12 +57,18 @@ class Yolo:
             x2 = (cx + bw / 2) * image_width
             y2 = (cy + bh / 2) * image_height
 
+            # Clip the coordinates to ensure they are within the image bounds
+            x1 = np.clip(x1, 0, image_width)
+            y1 = np.clip(y1, 0, image_height)
+            x2 = np.clip(x2, 0, image_width)
+            y2 = np.clip(y2, 0, image_height)
+
             # Stack the coordinates into a single array
             box = np.stack([x1, y1, x2, y2], axis=-1)
 
             # Append processed outputs
             boxes.append(box)
-            box_confidences.append(box_confidence[..., np.newaxis])
+            box_confidences.append(box_confidence)
             box_class_probs.append(class_probs)
 
         return boxes, box_confidences, box_class_probs
