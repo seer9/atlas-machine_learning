@@ -57,12 +57,6 @@ class Yolo:
             x2 = (cx + bw / 2) * image_width
             y2 = (cy + bh / 2) * image_height
 
-            # Clip the coordinates to ensure they are within the image bounds
-            x1 = np.clip(x1, 0, image_width)
-            y1 = np.clip(y1, 0, image_height)
-            x2 = np.clip(x2, 0, image_width)
-            y2 = np.clip(y2, 0, image_height)
-
             # Stack the coordinates into a single array
             box = np.stack([x1, y1, x2, y2], axis=-1)
 
