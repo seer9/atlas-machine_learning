@@ -59,12 +59,6 @@ class Yolo:
             x2 = (bx + bw / 2) * image_width
             y2 = (by + bh / 2) * image_height
 
-            # Clip the coordinates to ensure they are within the image bounds
-            x1 = np.clip(x1, 0, image_width)
-            y1 = np.clip(y1, 0, image_height)
-            x2 = np.clip(x2, 0, image_width)
-            y2 = np.clip(y2, 0, image_height)
-
             # Append processed boxes
             boxes.append(np.stack((x1, y1, x2, y2), axis=-1))
 
