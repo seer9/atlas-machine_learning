@@ -59,6 +59,12 @@ class Yolo:
             x2 = (bx + bw / 2) * image_width
             y2 = (by + bh / 2) * image_height
 
+            # Ensure the coordinates are relative to the image size
+            x1 = x1 - (image_width / 2)
+            y1 = y1 - (image_height / 2)
+            x2 = x2 - (image_width / 2)
+            y2 = y2 - (image_height / 2)
+
             # Append processed boxes
             boxes.append(np.stack((x1, y1, x2, y2), axis=-1))
 
