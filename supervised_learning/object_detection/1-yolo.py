@@ -2,8 +2,6 @@
 """ Yolo class """
 from tensorflow import keras as K
 import numpy as np
-import os
-import cv2
 
 
 class Yolo:
@@ -19,8 +17,6 @@ class Yolo:
 
     def load_classes(self, classes_path):
         """ loads the class names from a file """
-        if not os.path.isfile(classes_path):
-            raise FileNotFoundError(f"Classes file not found: {classes_path}")
         with open(classes_path, 'r') as f:
             class_names = f.read().splitlines()
         return class_names
@@ -34,22 +30,25 @@ class Yolo:
         Processes the outputs of the YOLO model.
         """
         image_height, image_width = image_size
-        boxes, box_confidences, box_class_probs = [], [], []
+        boxes = []
+        box_confidences = []
+        box_class_probs = []
 
         for i, output in enumerate(outputs):
             grid_h, grid_w = output.shape[:2]
 
-            tx = self.sigmoid(output[..., 0])
-            ty = self.sigmoid(output[..., 1])
+            tx = output[..., 0]
+            ty = output[..., 1]
             tw = output[..., 2]
             th = output[..., 3]
 
             cx, cy = np.meshgrid(np.arange(grid_w), np.arange(grid_h))
-            cx = cx.reshape((1, grid_h, grid_w, 1))
-            cy = cy.reshape((1, grid_h, grid_w, 1))
+            cx = np.expand_dims(cx, axis=-1)
+            cy = np.expand_dims(cy, axis=-1)
 
-            bx = (cx + tx) / grid_w
-            by = (cy + ty) / grid_h
+            bx = (self.sigmoid(tx) + cx) / grid_w
+            by = (self.sigmoid(ty) + cy) / grid_h
+
             bw = np.exp(tw) * self.anchors[i, :, 0] / image_width
             bh = np.exp(th) * self.anchors[i, :, 1] / image_height
 
