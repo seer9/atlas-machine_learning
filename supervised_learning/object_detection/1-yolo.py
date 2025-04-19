@@ -35,27 +35,35 @@ class Yolo:
         box_class_probs = []
 
         for i, output in enumerate(outputs):
-            grid_h, grid_w = output.shape[:2]
+            grid_h, grid_w, anchor_boxes = output.shape[:3]
 
-            tx = output[..., 0]
-            ty = output[..., 1]
+            tx = self.sigmoid(output[..., 0])
+            ty = self.sigmoid(output[..., 1])
             tw = output[..., 2]
             th = output[..., 3]
 
+            # Generate grid coordinates
             cx, cy = np.meshgrid(np.arange(grid_w), np.arange(grid_h))
             cx = np.expand_dims(cx, axis=-1)
             cy = np.expand_dims(cy, axis=-1)
 
-            bx = (self.sigmoid(tx) + cx) / grid_w
-            by = (self.sigmoid(ty) + cy) / grid_h
-
+            # Calculate bx, by, bw, bh
+            bx = (tx + cx) / grid_w
+            by = (ty + cy) / grid_h
             bw = np.exp(tw) * self.anchors[i, :, 0] / image_width
             bh = np.exp(th) * self.anchors[i, :, 1] / image_height
 
+            # Convert to corner coordinates
             x1 = (bx - bw / 2) * image_width
             y1 = (by - bh / 2) * image_height
             x2 = (bx + bw / 2) * image_width
             y2 = (by + bh / 2) * image_height
+
+            # Clip the coordinates to ensure they are within the image bounds
+            x1 = np.clip(x1, 0, image_width)
+            y1 = np.clip(y1, 0, image_height)
+            x2 = np.clip(x2, 0, image_width)
+            y2 = np.clip(y2, 0, image_height)
 
             # Append processed boxes
             boxes.append(np.stack((x1, y1, x2, y2), axis=-1))
