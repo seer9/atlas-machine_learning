@@ -39,24 +39,20 @@ class Yolo:
         for i, output in enumerate(outputs):
             grid_h, grid_w = output.shape[:2]
 
-            # Extract t_x, t_y, t_w, t_h
             tx = self.sigmoid(output[..., 0])
             ty = self.sigmoid(output[..., 1])
             tw = output[..., 2]
             th = output[..., 3]
 
-            # Generate grid coordinates
             cx, cy = np.meshgrid(np.arange(grid_w), np.arange(grid_h))
             cx = cx.reshape((1, grid_h, grid_w, 1))
             cy = cy.reshape((1, grid_h, grid_w, 1))
 
-            # Calculate bx, by, bw, bh
             bx = (cx + tx) / grid_w
             by = (cy + ty) / grid_h
             bw = np.exp(tw) * self.anchors[i, :, 0] / image_width
             bh = np.exp(th) * self.anchors[i, :, 1] / image_height
 
-            # Convert to corner coordinates
             x1 = (bx - bw / 2) * image_width
             y1 = (by - bh / 2) * image_height
             x2 = (bx + bw / 2) * image_width
