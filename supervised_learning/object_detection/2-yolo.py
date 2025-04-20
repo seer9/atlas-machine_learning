@@ -81,18 +81,31 @@ class Yolo:
 
     def filter_boxes(self, boxes, box_confidences, box_class_probs):
         """
-        filter boxes based on class confidence and class probabilities.
+        Filter boxes based on object confidence and class probability thresholds.
+        
+        Args:
+            boxes: List of numpy.ndarrays of processed boundary boxes
+            box_confidences: List of numpy.ndarrays of box confidences
+            box_class_probs: List of numpy.ndarrays of class probabilities
+            
+        Returns:
+            Tuple of (filtered_boxes, box_classes, box_scores)
         """
-        box_scores = [
-            bc * bcp for bc, bcp in zip(box_confidences, box_class_probs)]
-        box_classes = [np.argmax(bs, axis=-1) for bs in box_scores]
-        box_scores = [np.max(bs, axis=-1) for bs in box_scores]
+        # Convert lists to single numpy arrays
+        boxes = np.concatenate([box.reshape(-1, 4) for box in boxes])
+        confidences = np.concatenate([conf.reshape(-1) for conf in box_confidences])
+        class_probs = np.concatenate([prob.reshape(-1, len(self.class_names)) 
+                                   for prob in box_class_probs])
 
-        # filter boxes based on class confidence
-        mask = np.array([bs >= self.class_t for bs in box_scores])
-        filtered_boxes = [b[mask[i]] for i, b in enumerate(boxes)]
-        filtered_box_classes = [
-            bc[mask[i]] for i, bc in enumerate(box_classes)]
-        filtered_box_scores = [bs[mask[i]] for i, bs in enumerate(box_scores)]
-
-        return filtered_boxes, filtered_box_classes, filtered_box_scores
+        # Calculate box scores
+        box_scores = confidences * np.max(class_probs, axis=-1)
+        
+        # Filter by class threshold
+        mask = box_scores >= self.class_t
+        filtered_boxes = boxes[mask]
+        box_scores = box_scores[mask]
+        
+        # Get predicted classes
+        box_classes = np.argmax(class_probs[mask], axis=-1)
+        
+        return filtered_boxes, box_classes, box_scores
