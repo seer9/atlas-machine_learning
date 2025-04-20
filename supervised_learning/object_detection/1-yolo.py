@@ -51,11 +51,11 @@ class Yolo:
             cx = np.arange(grid_w).reshape(1, grid_w, 1)
             cy = np.arange(grid_h).reshape(grid_h, 1, 1)
 
-            # get box centers
+            # get box centers (sigmoid applied to tx, ty)
             bx = (self._sigmoid(tx) + cx) / grid_w
             by = (self._sigmoid(ty) + cy) / grid_h
 
-            # get box dimensions
+            # get box dimensions (exp applied to tw, th)
             pw = self.anchors[i, :, 0]
             ph = self.anchors[i, :, 1]
             # normalize by width
