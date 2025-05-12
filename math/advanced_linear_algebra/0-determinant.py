@@ -15,6 +15,9 @@ def determinant(matrix):
         raise TypeError("matrix must be a list of lists")
     if len(matrix) != len(matrix[0]):
         raise ValueError("matrix must be a square matrix")
+    """check if matrix is 0x0"""
+    if len(matrix) == 0:
+        return 1
     if len(matrix) == 1:
         return matrix[0][0]
     if len(matrix) == 2:
