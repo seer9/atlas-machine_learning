@@ -1,0 +1,1 @@
+In this module ill be learning about advanced linear algebra and complex concepts such as vector spaces, eigenvalues, eigenvectors, matrix decompositions, and how to apply these to solve high-dimensional problems.
