@@ -11,13 +11,12 @@ def determinant(matrix):
     Returns:
         The determinant of the matrix.
     """
-    if len(matrix) == 0:
-        return '1'
     if not all(isinstance(row, list) for row in matrix):
         raise TypeError("matrix must be a list of lists")
     if len(matrix) != len(matrix[0]):
+        if len(matrix) == 0:
+            return 1
         raise ValueError("matrix must be a square matrix")
-    """check if matrix is 0x0"""
     if len(matrix) == 1:
         return matrix[0][0]
     if len(matrix) == 2:
