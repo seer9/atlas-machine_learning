@@ -41,10 +41,9 @@ def minor(matrix):
     """
     if not all(isinstance(row, list) for row in matrix):
         raise TypeError("matrix must be a list of lists")
-    
-    if len(matrix) != len(i):
-        raise ValueError("matrix must be a non-empty square matrix")
-    
+    for i in matrix:
+        if len(matrix) != len(i):
+            raise ValueError("matrix must be a non-empty square matrix")
     if len(matrix) == 1:
         return [[1]]
     minors = []
