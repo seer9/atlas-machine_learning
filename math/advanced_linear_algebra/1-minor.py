@@ -29,6 +29,7 @@ def determinant(matrix):
 
     return det
 
+
 def minor(matrix):
     """
     Calculates the minor of a matrix.
@@ -51,5 +52,6 @@ def minor(matrix):
         minors.append([])
         for j in range(len(matrix)):
             minors[i].append(determinant(
-                [row[:j] + row[j + 1:] for row in matrix[:i] + matrix[i + 1:]]))
+                [row[:j] + row[j + 1:]
+                 for row in matrix[:i] + matrix[i + 1:]]))
     return minors
