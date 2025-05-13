@@ -20,7 +20,7 @@ def definiteness(matrix):
         return "Negative definite"
     elif all(ev <= 0):
         return "Negative semi-definite"
-    elif any(ev == 0):
-        return "Indefinite"
-    else:
+    elif any(ev >= 0):
         return "Positive semi-definite"
+    else:
+        return "Indefinite"
