@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""derterminant of a matrix"""
 
 
 def determinant(matrix):
