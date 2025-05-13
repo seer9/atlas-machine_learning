@@ -79,6 +79,7 @@ def inverse(matrix):
         return None
     cofactors = cofactor(matrix)
     cofactors_transpose = [[cofactors[j][i] for j in range(len(cofactors))]
-                            for i in range(len(cofactors))]
-    return [[cofactors_transpose[i][j] / det for j in range(len(cofactors_transpose))]
+                           for i in range(len(cofactors))]
+    return [[cofactors_transpose[i][j] / det
+             for j in range(len(cofactors_transpose))]
             for i in range(len(cofactors_transpose))]
