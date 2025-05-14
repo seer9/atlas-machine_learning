@@ -41,5 +41,3 @@ def intersection(x, n, P, Pr):
     likelihood = coef * (P ** x) * ((1 - P) ** (n - x))
     intersection = likelihood * Pr
     return np.sum(intersection)
-
-
