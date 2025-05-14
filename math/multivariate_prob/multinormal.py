@@ -24,7 +24,6 @@ class MultiNormal:
         if x.shape != (d, 1):
             raise ValueError("x must have the shape ({}, 1)".format(d))
 
-
         const = 1 / ((2 * np.pi) ** (d / 2) * np.linalg.det(self.cov) ** 0.5)
         dev = x - self.mean
         inv = np.linalg.inv(self.cov)
