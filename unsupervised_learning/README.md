@@ -1,0 +1,1 @@
+In this module, im focusing on dimensionality reduction to reduce the number of input variables in a dataset while preserving as much relevant information as possible.
