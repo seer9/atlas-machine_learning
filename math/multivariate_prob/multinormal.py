@@ -15,3 +15,18 @@ class MultiNormal:
         mean = self.mean
         self.cov = np.matmul(
             data - mean, (data - mean).T) / (data.shape[1] - 1)
+
+    def pdf(self, x):
+        """calculates the PDF at a given point"""
+        if type(x) is not np.ndarray:
+            raise TypeError("x must be a numpy.ndarray")
+        d = self.mean.shape[0]
+        if x.shape != (d, 1):
+            raise ValueError("x must have the shape ({}, 1)".format(d))
+
+
+        const = 1 / ((2 * np.pi) ** (d / 2) * np.linalg.det(self.cov) ** 0.5)
+        dev = x - self.mean
+        inv = np.linalg.inv(self.cov)
+        exponent = -0.5 * np.matmul(np.matmul(dev.T, inv), dev)
+        return const * np.exp(exponent[0, 0])
