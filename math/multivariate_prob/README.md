@@ -1,0 +1,1 @@
+In this module ill be learning multivariate probability which is the study of joint probability distributions over multiple random variables, enabling machine learning models to capture dependencies and relationships between features.
