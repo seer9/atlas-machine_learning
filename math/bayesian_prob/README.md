@@ -1,0 +1,1 @@
+in this module ill be learning bayesian probability and statistics in machine learning involve using Bayes' theorem to update the probability of a hypothesis as more evidence or data becomes available.
