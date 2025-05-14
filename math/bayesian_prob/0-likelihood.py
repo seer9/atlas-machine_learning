@@ -15,13 +15,11 @@ def likelihood(X, n, P):
     Returns:
         A numpy.ndarray of shape (n, 1) containing the likelihood of each data point.
     """
-
-    if type(X) is not int or X <= 0:
-        str = "x must be an integer that is greater than or equal to 0"
-        raise TypeError(str)
-
     if type(n) is not int or n <= 0:
         raise ValueError("n must be a positive integer")
+    if type(X) is not int or X < 0:
+        str = "x must be an integer that is greater than or equal to 0"
+        raise TypeError(str)
     if X > n:
         raise ValueError("x cannot be greater than n")
 
