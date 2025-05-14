@@ -5,7 +5,8 @@ import numpy as np
 
 def intersection(x, n, P, Pr):
     """
-    calculates the intersection of obtaining this data with the various hypothetical probabilities:
+    calculates the intersection of obtaining this data with
+    the various hypothetical probabilities.
 
     Args:
         X: A numpy.ndarray of shape (n, d) containing the data points.
@@ -14,7 +15,7 @@ def intersection(x, n, P, Pr):
         Pr: A numpy.ndarray of shape (d, d) containing the prior beliefs of P
 
     Returns:
-        A numpy.ndarray containing the intersection of obtaining x and n 
+        A numpy.ndarray containing the intersection of obtaining x and n
         with each probability in P, respectively
     """
     factorial = np.math.factorial
@@ -35,7 +36,7 @@ def intersection(x, n, P, Pr):
         raise ValueError("All values in Pr must be in the range [0, 1]")
     if not np.isclose(np.sum(Pr), 1):
         raise ValueError("Pr must sum to 1")
-    
+
     likelihood = []
     intersection = []
     coef = factorial(n) / (factorial(x) * factorial(n - x))
