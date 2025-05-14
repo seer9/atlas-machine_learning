@@ -3,18 +3,20 @@
 import numpy as np
 
 
-def marginal(x, n, P, Pr):
+def posterior(x, n, P, Pr):
     """
-    calculates the marginal probability of obtaining the data.
+    calculates the posterior probability for the various hypothetical
+    probabilities of developing severe side effects given the data.
 
     Args:
-        X: A numpy.ndarray of shape (n, d) containing the data points.
+        X: A numpy.ndarray of patients that develop severe side effects.
         n: The number of data points.
-        P: A numpy.ndarray of shape (d, d) representing the covariance matrix.
-        Pr: A numpy.ndarray of shape (d, d) containing the prior beliefs of P
+        P: A numpy.ndarray representing the covariance matrix.
+        Pr: A numpy.ndarray containing the prior beliefs of P.
 
     Returns:
-        the marginal probability of obtaining x and n
+        the posterior probability of each probability in P given x and n,
+        respectively.
     """
     factorial = np.math.factorial
     if type(n) is not int or n <= 0:
@@ -40,4 +42,4 @@ def marginal(x, n, P, Pr):
     coef = patience / ill
     likelihood = coef * (P ** x) * ((1 - P) ** (n - x))
     intersection = likelihood * Pr
-    return np.sum(intersection)
+    return intersection / np.sum(intersection)
