@@ -13,7 +13,7 @@ def mean_cov(X):
     Returns:
         A tuple containing the mean and covariance of the dataset.
     """
-    if type(X) is not np.ndarray:
+    if type(X) is not np.ndarray or len(X.shape) != 2:
         raise TypeError("X must be a 2D numpy.ndarray")
     if X.shape[0] < 2:
         raise ValueError("X must contain multiple data points")
