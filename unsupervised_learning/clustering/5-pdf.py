@@ -32,12 +32,11 @@ def pdf(X, m, S):
     det = np.linalg.det(S)
     if det == 0:
         return None
-
     inverse = np.linalg.inv(S)
 
-    norm = 1 / ((2 * np.pi) ** (d / 2) * np.sqrt(det))
+    norm = 1.0 / (np.sqrt(2 * np.pi) ** d * np.sqrt(det))
 
-    diff = X[:, np.newaxis] - m
+    diff = X - m
     exponent = -0.5 * np.sum(diff @ inverse * diff, axis=1)
 
     pdf = norm * np.exp(exponent)
