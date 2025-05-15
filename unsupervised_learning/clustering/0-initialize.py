@@ -21,6 +21,8 @@ def initialize(X, k):
         return None
 
     n, d = X.shape
+    if k > n or type(k) is not int or k <= 0:
+        return None
     low = np.min(X, axis=0)
     high = np.max(X, axis=0)
     centroids = np.random.uniform(low, high, (k, d))
