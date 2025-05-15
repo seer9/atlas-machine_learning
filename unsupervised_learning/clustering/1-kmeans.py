@@ -33,7 +33,7 @@ def kmeans(X, k, iterations=1000):
         closest = np.argmin(np.linalg.norm(X[:, None] - cent, axis=-1), axis=1)
         new = np.copy(cent)
         for i in range(k):
-            if cent not in closest:
+            if i not in closest:
                 new[i] = np.random.uniform(low, high)
             else:
                 new[i] = np.mean(X[closest == i], axis=0)
