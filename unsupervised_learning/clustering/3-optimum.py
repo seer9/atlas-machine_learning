@@ -33,7 +33,9 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
         return None, None
 
     if kmax is None:
-        kmax = X.shape[0]
+        max_cl = X.shape[0]
+    else:
+        max_cl = kmax
 
     results = []
     d_vars = []
@@ -45,12 +47,12 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
     d_vars = [0.0]
     k = kmin + 1
 
-    while k <= kmax:
+    while k < max_cl + 1:
         C, clss = kmeans(X, k, iterations)
-        var = variance(X, C)
         results.append((C, clss))
-        d_vars.append(base - var)
+        var = variance(X, C)
+        results[k - kmin] = (C, clss)
+        d_vars.append(var - base)
         base = var
         k += 1
-
     return results, d_vars
