@@ -34,33 +34,41 @@ def kmeans(X, k, iterations=1000):
 
     Args:
         X: A numpy.ndarray of shape (n, d) containing the dataset.
-        k: The number of clusters.
-        iterations: The number of iterations to perform.
+        k: A positive integer containing the number of clusters.
+        iterations: A positive integer containing the maximum number of iterations.
 
     Returns:
         A tuple containing:
-            - centroids: A numpy.ndarray of shape (k, d) containing the final
-              cluster centroids.
-            - clss: A numpy.ndarray of shape (n,) containing the index of the
-              cluster each data point belongs to.
+            - C: A numpy.ndarray of shape (k, d) containing the centroid means for each cluster.
+            - clss: A numpy.ndarray of shape (n,) containing the index of the cluster in C
+              that each data point belongs to.
+        Or (None, None) on failure.
     """
     if not isinstance(X, np.ndarray) or len(X.shape) != 2:
-        return None
-    if not isinstance(k, int) or k < 0:
-        return None
+        return None, None
+    if not isinstance(k, int) or k <= 0:
+        return None, None
+    if not isinstance(iterations, int) or iterations <= 0:
+        return None, None
 
     n, d = X.shape
-    if k > n or type(k) is not int or k <= 0:
-        return None
+    if k > n:
+        return None, None
 
-    centroids = initialize(X, k)
-    if centroids is None:
-        return None
+    low = np.min(X, axis=0)
+    high = np.max(X, axis=0)
+    centroids = np.random.uniform(low, high, (k, d))
 
     for _ in range(iterations):
         distances = np.linalg.norm(X[:, np.newaxis] - centroids, axis=2)
         clss = np.argmin(distances, axis=1)
-        new_centroids = np.array([X[clss == i].mean(axis=0) for i in range(k)])
+
+        new_centroids = np.array([
+            X[clss == i].mean(axis=0)
+            if np.any(clss == i) 
+            else np.random.uniform(low, high)
+            for i in range(k)
+        ])
         if np.all(centroids == new_centroids):
             break
         centroids = new_centroids
