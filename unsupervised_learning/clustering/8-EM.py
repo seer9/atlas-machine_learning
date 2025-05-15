@@ -24,36 +24,32 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
            cluster and data point.
         log_likelihoods: A list of log likelihoods at each iteration.
     """
-    if not isinstance(X, np.ndarray) or len(X.shape) != 2:
+    if not isinstance(X, np.ndarray) or X.ndim != 2:
         return None, None, None, None, None
     if not isinstance(k, int) or k <= 0:
         return None, None, None, None, None
     if not isinstance(iterations, int) or iterations <= 0:
         return None, None, None, None, None
-    if not isinstance(tol, float) or tol <= 0:
+    if not isinstance(tol, float) or tol < 0:
+        return None, None, None, None, None
+    if not isinstance(verbose, bool):
         return None, None, None, None, None
 
     pi, m, S = initialize(X, k)
-    if pi is None or m is None or S is None:
-        return None, None, None, None, None
-
-    prev_li = -np.inf
-    g, prev_li = expectation(X, pi, m, S)
 
     for i in range(iterations):
+        g, prev_li = expectation(X, pi, m, S)
+
+        if verbose and i % 10 == 0:
+            print(f"Log Likelihood after {i} iterations: {round(prev_li, 5)}")
+
         pi, m, S = maximization(X, g)
 
         g, li = expectation(X, pi, m, S)
 
         if np.abs(li - prev_li) <= tol:
-            if verbose:
-                print(
-                    f"Log Likelihood after {i + 1} iterations: {round(li, 5)}")
-            return pi, m, S, g, li
+            break
 
-        prev_li = li
-
-        if verbose and i % 10 == 0:
-            print(f"Log Likelihood after {i + 1} iterations: {round(li, 5)}")
-
+    if verbose:
+        print(f"Log Likelihood after {i + 1} iterations: {round(li, 5)}")
     return pi, m, S, g, li
