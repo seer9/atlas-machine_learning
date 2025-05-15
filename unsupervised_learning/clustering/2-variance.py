@@ -15,10 +15,12 @@ def variance(X, C):
         A numpy.ndarray of shape (d,) containing the variance of each feature.
     """
     if type(X) is not np.ndarray or len(X.shape) != 2:
-        raise TypeError("X must be a 2D numpy.ndarray")
+        return None
     if type(C) is not np.ndarray or len(C.shape) != 2:
-        raise TypeError("C must be a 2D numpy.ndarray")
-    if X.shape[1] != C.shape[0]:
-        raise ValueError("X and C must have compatible shapes")
+        return
+    if X.shape[1] != C.shape[1]:
+        return None
 
-    return np.diagonal(C)
+    distance = np.min(np.linalg.norm(X[:, np.newaxis], axis=-1), axis=-1)
+
+    return (distance ** 2) / X.shape[0]
