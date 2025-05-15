@@ -23,4 +23,4 @@ def variance(X, C):
 
     distance = np.min(np.linalg.norm(X[:, np.newaxis], axis=-1), axis=-1)
 
-    return (distance ** 2) / X.shape[0]
+    return np.sum(distance ** 2)
