@@ -8,9 +8,9 @@ def pdf(X, m, S):
     Calculates the probability density function of a Gaussian Mixture Model.
 
     Args:
-        X: A numpy.ndarray of shape (n, d) containing the data points.
-        m: A numpy.ndarray of shape (k, d) containing the cluster means.
-        S: A numpy.ndarray of shape (k, d, d) containing the covariance matrices.
+        X: A numpy.ndarray containing the data points.
+        m: A numpy.ndarray containing the cluster means.
+        S: A numpy.ndarray containing the covariance matrices.
 
     Returns:
         A numpy.ndarray of shape (k, n) containing the probability density
@@ -28,11 +28,11 @@ def pdf(X, m, S):
         return None
 
     n, d = X.shape
-    
+
     det = np.linalg.det(S)
     if det == 0:
         return None
-    
+
     inverse = np.linalg.inv(S)
 
     norm = 1 / ((2 * np.pi) ** (d / 2) * np.sqrt(det))
@@ -42,4 +42,4 @@ def pdf(X, m, S):
 
     pdf = norm * np.exp(exponent)
 
-    return pdf
+    return np.maximum(pdf, 1e-300)
