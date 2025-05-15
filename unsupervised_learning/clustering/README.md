@@ -1,0 +1,1 @@
+In this module ill be learning more about K-means and clustering that partitions data into K distinct clusters based on feature similarity. 
