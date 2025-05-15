@@ -17,9 +17,9 @@ def initialize(X, k):
         or None if the input is invalid.
     """
     if not isinstance(X, np.ndarray) or X.ndim != 2:
-        return None
+        return None, None, None
     if not isinstance(k, int) or k <= 0:
-        return None
+        return None, None, None
 
     pi = np.full((k,), 1 / k)
 
