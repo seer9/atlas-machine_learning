@@ -34,7 +34,7 @@ def kmeans(X, k, iterations=1000):
         new = np.copy(cent)
         for i in range(k):
             if i not in closest:
-                new[i] = np.random.uniform(low, high)
+                new[i] = np.random.uniform(low, high, (d,))
             else:
                 new[i] = np.mean(X[closest == i], axis=0)
         if np.array_equal(new, cent):
