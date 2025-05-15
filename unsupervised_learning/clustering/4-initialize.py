@@ -20,14 +20,14 @@ def initialize(X, k):
         return None
     if not isinstance(k, int) or k <= 0:
         return None
-    
+
     pi = np.full((k,), 1 / k)
 
     m, _ = kmeans(X, k)
 
     if m is None:
         return None, None, None
-    
+
     S = np.tile(np.eye(X.shape[1]), (k, 1, 1))
 
     return pi, m, S
