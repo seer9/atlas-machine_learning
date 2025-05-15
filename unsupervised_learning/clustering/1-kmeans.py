@@ -28,6 +28,7 @@ def initialize(X, k):
     centroids = np.random.uniform(low, high, (k, d))
     return centroids
 
+
 def kmeans(X, k, iterations=1000):
     """
     Performs K-means clustering on a dataset.
@@ -35,12 +36,12 @@ def kmeans(X, k, iterations=1000):
     Args:
         X: A numpy.ndarray of shape (n, d) containing the dataset.
         k: A positive integer containing the number of clusters.
-        iterations: A positive integer containing the maximum number of iterations.
+        iterations: maximum number of iterations.
 
     Returns:
         A tuple containing:
-            - C: A numpy.ndarray of shape (k, d) containing the centroid means for each cluster.
-            - clss: A numpy.ndarray of shape (n,) containing the index of the cluster in C
+            - C: A numpy.ndarray containing the centroid means for all cluster.
+            - clss: A numpy.ndarray containing the index of the cluster in C
               that each data point belongs to.
         Or (None, None) on failure.
     """
@@ -65,7 +66,7 @@ def kmeans(X, k, iterations=1000):
 
         new_centroids = np.array([
             X[clss == i].mean(axis=0)
-            if np.any(clss == i) 
+            if np.any(clss == i)
             else np.random.uniform(low, high)
             for i in range(k)
         ])
