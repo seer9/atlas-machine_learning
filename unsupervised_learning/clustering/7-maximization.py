@@ -23,7 +23,7 @@ def maximization(X, g):
 
     n, d = X.shape
     k, _ = g.shape
-    
+
     pi = np.sum(g, axis=1) / n
 
     m = np.dot(g, X) / np.sum(g, axis=1)[:, np.newaxis]
