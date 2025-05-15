@@ -30,13 +30,14 @@ def kmeans(X, k, iterations=1000):
     cent = np.random.uniform(low, high, (k, d))
 
     for _ in range(iterations):
-        distances = np.linalg.norm(X[:, np.newaxis] - cent, axis=2)
-        closest = np.argmin(distances, axis=1)
-
-        new_cent = np.array([X[closest == i].mean(axis=0)
-                             for i in range(k)])
-        if np.all(cent == new_cent):
+        closest = np.argmin(np.linalg.norm(X[:, None] - cent, axis=-1), axis=1)
+        new = np.copy(cent)
+        for i in range(k):
+            if cent not in closest:
+                new[i] = np.random.uniform(low, high)
+            else:
+                new[i] = np.mean(X[closest == i], axis=0)
+        if np.array_equal(new, cent):
             break
-        cent = new_cent
-    
+        cent = new
     return cent, closest
