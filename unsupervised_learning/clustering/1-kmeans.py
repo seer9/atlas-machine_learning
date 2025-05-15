@@ -25,9 +25,9 @@ def kmeans(X, k, iterations=1000):
     n, d = X.shape
     if k == 0:
         return None, None
-    cent = np.random.uniform(low, high, size=(k, d))
     low = np.min(X, axis=0)
     high = np.max(X, axis=0)
+    cent = np.random.uniform(low, high, (k, d))
 
     for _ in range(iterations):
         distances = np.linalg.norm(X[:, np.newaxis] - cent, axis=2)
