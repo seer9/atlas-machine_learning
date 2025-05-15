@@ -37,18 +37,19 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
     if pi is None or m is None or S is None:
         return None, None, None, None, None
 
-    prev_li = None
-    for i in range(iterations):
+    prev_li = -np.inf
+    g, prev_li = expectation(X, pi, m, S)
     
-        if verbose and i % 10 == 0:
-            print(f"Log Likelihood after {i} iterations: {round(prev_li, 5)}")
+    for i in range(iterations):
+            if verbose and i % 10 == 0:
+                print(f"Log Likelihood after {i} iterations: {round(prev_li, 5)}")
 
-        pi, m, S = maximization(X, g)
+    pi, m, S = maximization(X, g)
 
-        g, li = expectation(X, pi, m, S)
+    g, li = expectation(X, pi, m, S)
 
-        if np.abs(li - prev_li) <= tol:
-            break
+    if np.abs(li - prev_li) <= tol:
+        return pi, m, S, g, li
 
     if verbose:
         print(f"Log Likelihood after {i + 1} iterations: {round(li, 5)}")
