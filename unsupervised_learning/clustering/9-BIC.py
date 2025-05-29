@@ -56,6 +56,8 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
             return None, None, None, None
         if S is None or g is None:
             return None, None, None, None
+        if kmax >= kmin and k > n:
+            return None, None, None, None
 
         num_params = (k - 1) + (k * d) + (k * d * (d + 1)) / 2
 
