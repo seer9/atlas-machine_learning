@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """BIC for GMM"""
 import numpy as np
-expectation_max = __import__('8-EM').expectation_maximization
+expectation_maximization = __import__('8-EM').expectation_maximization
 
 
 def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
@@ -47,10 +47,11 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
     best_k = None
 
     for k in range(kmin, kmax + 1):
-        pi, m, S, g, log_likelihood = expectation_max(X, k,
-                                                      iterations=iterations,
-                                                      tol=tol,
-                                                      verbose=verbose)
+        pi, m, S, g, log_likelihood = expectation_maximization(
+            X, k,
+            iterations=iterations,
+            tol=tol,
+            verbose=verbose)
         if pi is None or m is None:
             return None, None, None, None
         if S is None or g is None:
