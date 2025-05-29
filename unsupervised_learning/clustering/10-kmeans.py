@@ -17,13 +17,6 @@ def kmeans(X, k):
         labels: A numpy.ndarray of shape (n,) containing the index of the
                 cluster each data point belongs to.
     """
-    if not isinstance(X, (list, tuple)):
-        return None, None
-    if not all(isinstance(x, (list, tuple)) for x in X):
-        return None, None
-    if not isinstance(k, int) or k <= 0:
-        return None, None
-
     model = sklearn.cluster.KMeans(n_clusters=k)
     model.fit(X)
 
