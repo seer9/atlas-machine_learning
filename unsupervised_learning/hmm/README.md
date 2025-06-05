@@ -1,0 +1,1 @@
+In this module ill be learning about Hidden Markov Models that are statistical models used to represent systems that transition between states by probability, where the states are not directly observable but generate observable outputs.
