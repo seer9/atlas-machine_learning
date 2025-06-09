@@ -14,7 +14,7 @@ class GaussianProcess:
         noise: The noise level in the observations.
     """
 
-    def __init__(self, X_init, Y_init, length=1, sigma_f=1):
+    def __init__(self, X_init, Y_init, l=1, sigma_f=1):
         """
         initializes the Gaussian Process with initial data and parameters.
 
@@ -26,7 +26,7 @@ class GaussianProcess:
         """
         self.X = X_init
         self.Y = Y_init
-        self.length = length
+        self.length = l
         self.sigma_f = sigma_f
         self.K = self.kernel(X_init, X_init)
 
@@ -44,4 +44,3 @@ class GaussianProcess:
         sqdist1 = np.sum(X1**2, 1).reshape(-1, 1) + np.sum(X2**2, 1)
         sqdist1 -= 2 * np.dot(X1, X2.T)
         return self.sigma_f**2 * np.exp(-0.5 / self.l**2 * sqdist1)
-    
