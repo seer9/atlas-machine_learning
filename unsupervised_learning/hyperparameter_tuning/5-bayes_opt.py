@@ -72,9 +72,7 @@ class BayesianOptimization:
         EI = imp * norm.cdf(Z) + sigma * norm.pdf(Z)
         EI[sigma == 0.0] = 0.0
 
-        X_next = self.X_s[np.argmax(EI)].reshape(
-            1,
-        )
+        X_next = self.X_s[np.argmax(EI)].reshape(1,)
 
         return X_next, EI
 
@@ -94,7 +92,7 @@ class BayesianOptimization:
             X_next, _ = self.acquisition()
 
             if X_next in X_all:
-                break # Avoid duplicate points
+                break  # Avoid duplicate points
 
             y_next = self.f(X_next)
             self.gp.update(X_next, y_next)
@@ -104,7 +102,7 @@ class BayesianOptimization:
             idx = np.argmin(self.gp.Y)
         else:
             idx = np.argmax(self.gp.Y)
-        
+
         self.gp.X = self.gp.X[:-1]
         X_opt = self.gp.X[idx]
         Y_opt = self.gp.Y[idx]
