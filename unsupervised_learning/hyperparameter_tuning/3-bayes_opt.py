@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Bayesian Optimization with Gaussian Process"""
 import numpy as np
-from scipy.stats import norm
 GP = __import__('2-gp').GaussianProcess
 
 
