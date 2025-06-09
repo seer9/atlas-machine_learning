@@ -64,6 +64,6 @@ class GaussianProcess:
         mu_s = mu_s.reshape(-1)
 
         cov_s = K_ss - K_s.T.dot(K_inv).dot(K_s)
-        sigma_s = np.sqrt(np.diag(cov_s))
+        sigma_s = np.diag(cov_s)
 
         return mu_s, sigma_s
