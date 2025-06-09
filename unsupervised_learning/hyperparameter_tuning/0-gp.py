@@ -44,25 +44,3 @@ class GaussianProcess:
         sqdist1 = np.sum(X1**2, 1).reshape(-1, 1) + np.sum(X2**2, 1)
         sqdist1 -= 2 * np.dot(X1, X2.T)
         return self.sigma_f**2 * np.exp(-0.5 / self.l**2 * sqdist1)
-
-    def predict(self, X_s):
-        """
-        Predicts the mean and standard deviation of the Gaussian Process at new points.
-
-        Args:
-            X_s: A numpy.ndarray of shape (m, d) containing the new input data.
-
-        Returns:
-            mu: A numpy.ndarray of shape (m,) representing the predicted mean.
-            sigma: A numpy.ndarray of shape (m,) representing the predicted standard deviation.
-        """
-        K_s = self.kernel(self.X, X_s)
-        K_ss = self.kernel(X_s, X_s)
-        K_inv = np.linalg.inv(self.K)
-
-        mu = K_s.T.dot(K_inv).dot(self.Y)
-        cov = K_ss - K_s.T.dot(K_inv).dot(K_s)
-        sigma = np.sqrt(np.diag(cov))
-
-        return mu, sigma
-    
