@@ -46,16 +46,18 @@ class BayesianOptimization:
         """
         mu, sigma = self.gp.predict(self.X_s)
         if self.minimize:
-            mu = -mu
+            Y_sampled = np.min(self.gp.Y)
+        else:
+            Y_sampled = np.max(self.gp.Y)
+            imp = Y_sampled - mu - self.xsi
 
-        with np.errstate(divide='ignore'):
-            Z = (mu - np.max(mu) + self.xsi) / sigma
-            EI = (
-                mu - np.max(mu) + self.xsi) * norm.cdf(Z) + sigma * norm.pdf(Z)
-
-        EI[sigma == 0.0] = 0.0
-
-        # Find the index of the maximum EI
-        X_next = self.X_s[np.argmax(EI)].reshape(1,)
-
+        Z = np.zeros(sigma.shape[0])
+        for i in range(sigma.shape[0]):
+            if sigma[i] > 0:
+                Z[i] = imp[i] / sigma[i]
+            else:
+                Z[i] = 0
+            EI = imp * norm.cdf(Z) + sigma * norm.pdf(Z)
+        X_next = self.X_s[np.argmax(EI)]
         return X_next, EI
+
