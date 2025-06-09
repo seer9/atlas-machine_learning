@@ -45,19 +45,19 @@ class BayesianOptimization:
             EI: containing the expected improvement.
         """
         mu, sigma = self.gp.predict(self.X_s)
-        if self.minimize:
+        if self.minimize is True:
             Y_sampled = np.min(self.gp.Y)
         else:
             Y_sampled = np.max(self.gp.Y)
-            imp = Y_sampled - mu - self.xsi
-
+            imp = mu - Y_sampled - self.xsi
+        
         Z = np.zeros(sigma.shape[0])
         for i in range(sigma.shape[0]):
-            if sigma[i] > 0:
-                Z[i] = imp[i] / sigma[i]
-            else:
+            if sigma[i] == 0:
                 Z[i] = 0
+            else:
+                Z[i] = imp[i] / sigma[i]
             EI = imp * norm.cdf(Z) + sigma * norm.pdf(Z)
+
         X_next = self.X_s[np.argmax(EI)]
         return X_next, EI
-
