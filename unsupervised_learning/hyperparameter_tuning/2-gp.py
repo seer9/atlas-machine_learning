@@ -76,6 +76,6 @@ class GaussianProcess:
             X_new: A numpy.ndarray of shape (m, d) containing new input data.
             Y_new: A numpy.ndarray of shape (m,) containing new target values.
         """
-        self.X = np.append(self.X, X_new, axis=0)
-        self.Y = np.append(self.Y, Y_new, axis=0)
+        self.X = np.append(self.X, X_new).reshape(-1, 1)
+        self.Y = np.append(self.Y, Y_new).reshape(-1, 1)
         self.K = self.kernel(self.X, self.X)
