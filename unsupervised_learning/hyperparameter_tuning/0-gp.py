@@ -26,7 +26,7 @@ class GaussianProcess:
         """
         self.X = X_init
         self.Y = Y_init
-        self.length = l
+        self.l = l
         self.sigma_f = sigma_f
         self.K = self.kernel(X_init, X_init)
 
