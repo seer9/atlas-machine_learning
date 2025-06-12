@@ -12,22 +12,26 @@ def regular(P):
             n is the number of states in the markov chain
     Returns: a numpy.ndarray of shape (1, n) containing the steady state probabilities, or None on failure
     """
-    if not isinstance(P, np.ndarray) or P.shape[0] != P.shape[1]:
+    if not isinstance(P, np.ndarray):
+        return None
+    if P.shape[0] != P.shape[1]:
         return None
     if len(P.shape) != 2:
         return None
     if not np.allclose(P.sum(axis=1), 1):
         return None
 
-    # setting up the equation
     n = P.shape[0]
     I = np.eye(n)
-    A = np.transpose(P) - I
-    b = np.zeros((n, 1))
-    b[-1] = 1  # last row is 1 for the steady state equation
-    # Solve the linear system
+    A = np.subtract(I, P)
+    A[-1, :] = 1
+    b = np.zeros(n)
+    b[-1] = 1
     try:
-        state = np.linalg.solve(A, b)
+        steady_state = np.linalg.solve(A, b)
     except np.linalg.LinAlgError:
         return None
-    return state.flatten() / state.sum()  # Normalize to get probabilities
+
+    if np.any(steady_state < 0):
+        return None
+    return steady_state.reshape(1, n)
