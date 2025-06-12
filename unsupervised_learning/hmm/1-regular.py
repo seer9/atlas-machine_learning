@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Markov Chain Regularity Check"""
 import numpy as np
 
 
