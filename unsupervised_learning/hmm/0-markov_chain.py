@@ -15,13 +15,6 @@ def markov_chain(P, s, t=1):
     Returns:
         A numpy.ndarray of shape (n,) representing the state after t iterations.
     """
-    if not isinstance(P, np.ndarray) or P.ndim != 2 or P.shape[0] != P.shape[1]:
-        return None
-    if not isinstance(s, np.ndarray) or s.ndim != 1 or s.shape[0] != P.shape[0]:
-        return None
-    if not np.allclose(s.sum(), 1.0):
-        return None
-
     current = s
     for _ in range(t):
         next = np.matmul(current, P)
