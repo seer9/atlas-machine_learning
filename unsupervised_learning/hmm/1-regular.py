@@ -7,10 +7,10 @@ def regular(P):
     Determines if a Markov chain is regular.
 
     Args:
-        P is a is a square 2D numpy.ndarray of shape (n, n) representing the transition matrix
+        P is shape (n, n) representing the transition matrix
             P[i, j] is the probability of transitioning from state i to state j
             n is the number of states in the markov chain
-    Returns: a numpy.ndarray of shape (1, n) containing the steady state probabilities, or None on failure
+    Returns: the steady state probabilities, or None on failure
     """
     try:
         if not isinstance(P, np.ndarray):
@@ -27,7 +27,7 @@ def regular(P):
         # normalize
         state = (evecs / evecs.sum())
 
-        new_S  = np.dot(state.T, P)
+        new_S = np.dot(state.T, P)
         for i in new_S:
             if (i >= 0).all() and np.isclose(i.sum(), 1):
                 return i.reshape(1, n)
