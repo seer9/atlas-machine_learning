@@ -1,0 +1,7 @@
+Optimal hyperparameters:
+Learning rate: 0.0095
+Units: 128
+Dropout rate: 0.17
+L2 regularization: 0.0050
+Batch size: 64
+Best validation accuracy: 0.9650
