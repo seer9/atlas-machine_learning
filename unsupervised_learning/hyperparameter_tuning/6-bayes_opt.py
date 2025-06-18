@@ -1,4 +1,4 @@
-import numpy as np
+#!/usr/bin/env python3
 """tensor flow for NN creation"""
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
@@ -15,41 +15,32 @@ import matplotlib.pyplot as plt
 import os
 
 if __name__ == '__main__':
-    # Generate synthetic dataset
+    # synthetic dataset for classifacation
     X, y = make_classification(
-        n_samples=1000,  # Number of samples
-        n_features=20,   # Total features
-        n_informative=15,  # Informative features
-        n_classes=2,     # Binary classification
-        random_state=42  # For reproducibility
+        n_samples=1000,
+        n_features=20,
+        n_informative=15,
+        n_classes=2,  
+        random_state=42  
     )
 
-    # Split into training and validation sets
+    # training and validation sets
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    # Standardize the data
+    # standardization
     scaler = StandardScaler()
     X_train = scaler.fit_transform(X_train)
     X_val = scaler.transform(X_val)
 
-    # Define the model creation function
+    # the model creation function
     def create_model(params):
-        """
-        Creates a neural network model based on the given hyperparameters.
 
-        Args:
-            params: A tuple containing (learning_rate, units, dropout_rate, l2_reg, batch_size).
-
-        Returns:
-            model: The compiled Keras model.
-            batch_size: The batch size as an integer.
-        """
         learning_rate, units, dropout_rate, l2_reg, batch_size = params
 
         model = Sequential([
             Dense(int(units), activation='relu', kernel_regularizer=tf.keras.regularizers.l2(l2_reg)),
             Dropout(dropout_rate),
-            Dense(1, activation='sigmoid')  # Output layer for binary classification
+            Dense(1, activation='sigmoid') 
         ])
 
         model.compile(
@@ -60,29 +51,21 @@ if __name__ == '__main__':
 
         return model, int(batch_size)
 
-    # Define the objective function for Bayesian optimization
-    def objective_function(hyperparams):
-        """
-        Objective function for Bayesian Optimization.
+    # define the objective function for Bayesian optimization
+    def fitting(hyperparams):
 
-        Args:
-            hyperparams: A list containing the hyperparameters to evaluate.
-
-        Returns:
-            Negative validation accuracy (to minimize).
-        """
-        # Extract hyperparameters
+        # initialize hyperparameters
         learning_rate, units, dropout_rate, l2_reg, batch_size = hyperparams[0]
 
-        # Create the model
+        # initialize the model
         model, batch_size = create_model((learning_rate, units, dropout_rate, l2_reg, batch_size))
 
-        # Define callbacks
+        # callbacks
         checkpoint_path = f"model_lr{learning_rate:.4f}_units{int(units)}_dropout{dropout_rate:.2f}_l2{l2_reg:.4f}_batch{int(batch_size)}.h5"
         checkpoint = ModelCheckpoint(checkpoint_path, save_best_only=True, monitor='val_accuracy', mode='max')
         early_stopping = EarlyStopping(monitor='val_accuracy', patience=5, restore_best_weights=True)
 
-        # Train the model
+        # training
         history = model.fit(
             X_train, y_train,
             validation_data=(X_val, y_val),
@@ -92,12 +75,12 @@ if __name__ == '__main__':
             callbacks=[checkpoint, early_stopping]
         )
 
-        # Get the best validation accuracy
+        # get the best validation accuracy
         val_accuracy = max(history.history['val_accuracy'])
 
-        return -val_accuracy  # Minimize negative accuracy
+        return -val_accuracy  # minimize negative accuracy
 
-    # Define the hyperparameter space
+    # define the hyperparameter space
     bounds = [
         {'name': 'learning_rate', 'type': 'continuous', 'domain': (1e-4, 1e-2)},
         {'name': 'units', 'type': 'discrete', 'domain': (16, 32, 64, 128, 256)},
@@ -106,20 +89,20 @@ if __name__ == '__main__':
         {'name': 'batch_size', 'type': 'discrete', 'domain': (16, 32, 64, 128)}
     ]
 
-    # Run Bayesian Optimization
+    # Bayesian Optimization
     optimizer = GPyOpt.methods.BayesianOptimization(
-        f=objective_function,  # Objective function
-        domain=bounds,         # Hyperparameter space
-        maximize=False         # Minimize the objective
+        f=fitting,  
+        domain=bounds,
+        maximize=False
     )
 
-    optimizer.run_optimization(max_iter=30)  # Number of iterations
+    optimizer.run_optimization(max_iter=30)  # iterations
 
-    # Print the best parameters and their corresponding accuracy
+    # print the best parameters and their accuracy
     print("Best parameters:", optimizer.x_opt)
     print("Best accuracy:", -optimizer.fx_opt)
 
-    # Save optimization results
+    # save results
     with open('bayes_opt.txt', 'w') as f:
         f.write("Optimal hyperparameters:\n")
         f.write(f"Learning rate: {optimizer.x_opt[0]:.4f}\n")
@@ -129,7 +112,6 @@ if __name__ == '__main__':
         f.write(f"Batch size: {int(optimizer.x_opt[4])}\n")
         f.write(f"Best validation accuracy: {-optimizer.fx_opt:.4f}\n")
 
-    # Plot convergence
+    # plot convergence
     optimizer.plot_convergence()
-    plt.savefig('convergence_plot.png')
     plt.show()
