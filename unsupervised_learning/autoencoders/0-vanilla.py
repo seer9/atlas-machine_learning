@@ -30,6 +30,6 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     
     autoencoder = keras.Model(inputs, decoder(encoder(inputs)), name='autoencoder')
     
-    autoencoder.compile(optimizer='adam', loss='mse')
+    autoencoder.compile(optimizer='adam')
     
     return encoder, decoder, autoencoder
