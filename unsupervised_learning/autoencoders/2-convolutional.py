@@ -21,34 +21,29 @@ def autoencoder(input_dims, filters, latent_dims):
             f, kernel_size=(3, 3), activation='relu', padding='same')(x)
         x = keras.layers.MaxPooling2D(pool_size=(2, 2), padding='same')(x)
 
-    # Latent layer
-    latent = keras.layers.Conv2D(
-        latent_dims[2],
-        kernel_size=(3, 3),
-        activation='relu',
-        padding='same')(x)
+    # Latent layer (output of the last MaxPooling2D layer)
+    latent = x
 
     encoder = keras.Model(inputs, latent)
 
     # Decoder
     x = latent
     for i, f in enumerate(reversed(filters)):
-        if i < len(filters) - 1:  # All but the second-to-last and last layers
+        if i < len(filters) - 2:  # All but the last two layers
             x = keras.layers.Conv2DTranspose(
                 f, kernel_size=(3, 3), activation='relu', padding='same')(x)
             x = keras.layers.UpSampling2D(size=(2, 2))(x)
-        elif i == len(filters) - 1:  # Second-to-last layer
+        elif i == len(filters) - 2:  # Second-to-last layer
             x = keras.layers.Conv2DTranspose(
                 f, kernel_size=(3, 3), activation='relu', padding='valid')(x)
+        elif i == len(filters) - 1:  # Last layer
+            x = keras.layers.Conv2D(
+                input_dims[2],
+                kernel_size=(3, 3),
+                activation='sigmoid',
+                padding='same')(x)
 
-    # Last layer
-    out = keras.layers.Conv2D(
-        input_dims[2],
-        kernel_size=(3, 3),
-        activation='sigmoid',
-        padding='same')(x)
-
-    decoder = keras.Model(latent, out, name='decoder')
+    decoder = keras.Model(latent, x, name='decoder')
 
     # Autoencoder
     autoencoder = keras.Model(
