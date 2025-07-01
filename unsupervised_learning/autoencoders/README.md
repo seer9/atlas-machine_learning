@@ -1,0 +1,1 @@
+autoencoders are designed to learn input data by compressing it into a latent space and reconstructing it back to its original form.
