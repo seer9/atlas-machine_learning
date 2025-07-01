@@ -23,13 +23,15 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
         x = keras.layers.Dense(units, activation='relu')(x)
 
     # Latent space parameters
-    z_mean = keras.layers.Dense(latent_dims, activation=None)(x)  # Mean of the latent space
-    z_log_var = keras.layers.Dense(latent_dims, activation=None)(x)  # Log variance of the latent space
+    z_mean = keras.layers.Dense(
+        latent_dims, activation=None)(x)
+    z_log_var = keras.layers.Dense(latent_dims, activation=None)(x)
 
     # Sampling layer
     def sampling(args):
         z_mean, z_log_var = args
-        epsilon = keras.backend.random_normal(shape=keras.backend.shape(z_mean))
+        epsilon = keras.backend.random_normal(
+            shape=keras.backend.shape(z_mean))
         return z_mean + keras.backend.exp(z_log_var / 2) * epsilon
 
     # Latent representation
@@ -48,11 +50,11 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     decoder = keras.Model(latent_inputs, outputs, name='decoder')
 
     # Autoencoder model
-    autoencoder = keras.Model(inputs, decoder(encoder(inputs)[0]), name='autoencoder')
+    autoencoder = keras.Model(
+        inputs, decoder(encoder(inputs)[0]), name='autoencoder')
 
     # Compile the autoencoder
     optimizer = keras.optimizers.Adam()  # instantiate Adam optimizer
     autoencoder.compile(optimizer=optimizer, loss='binary_crossentropy')
-
 
     return encoder, decoder, autoencoder
