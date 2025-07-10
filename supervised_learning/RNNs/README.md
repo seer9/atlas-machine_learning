@@ -1,0 +1,1 @@
+in this project ill be learning RNNs. A neural network designed to process sequential data by maintaining a memory of previous inputs through recurrent connections.
