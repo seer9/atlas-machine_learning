@@ -33,6 +33,6 @@ class RNNCell:
         h_prev_x = np.concatenate((h_prev, x_t), axis=1)
         h = np.tanh(np.dot(h_prev_x, self.Wh) + self.bh)
         y_raw = np.dot(h, self.Wy) + self.by
-        # Apply softmax to the output
+        # applying softmax to the output
         y = np.exp(y_raw) / np.sum(np.exp(y_raw), axis=1, keepdims=True)
         return h, y
