@@ -28,4 +28,4 @@ def deep_rnn(rnn_cells, X, H_0):
             if l == LAYERS - 2:
                 Y.append(0)
         H.append(temp_H.copy())
-    return np.array(H), np.array(Y)
+    return np.stack(H), np.stack(Y)
