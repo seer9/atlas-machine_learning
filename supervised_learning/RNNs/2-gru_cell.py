@@ -40,7 +40,7 @@ class GRUCell:
             h_prev: previous hidden state
             x_t: data input for the cell
         Returns:
-            h: new hidden state
+            h_next: new hidden state
             y: output of the cell
         """
         h_prev_x = np.concatenate((h_prev, x_t), axis=1)
@@ -49,9 +49,9 @@ class GRUCell:
         r = self.sigmoid(np.dot(h_prev_x, self.Wr) + self.br)
         h_hat = np.tanh(np.dot(np.concatenate(
             (r * h_prev, x_t), axis=1), self.Wh) + self.bh)
-        h = (1 - z) * h_prev + z * h_hat
+        h_next = (1 - z) * h_prev + z * h_hat
 
-        y_raw = np.dot(h, self.Wy) + self.by
+        y_raw = np.dot(h_next, self.Wy) + self.by
         y = self.softmax(y_raw)
 
-        return h, y
+        return h_next, y
