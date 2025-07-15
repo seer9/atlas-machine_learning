@@ -26,6 +26,6 @@ def deep_rnn(rnn_cells, X, H_0):
         for i in range(LAYERS - 1):
             temp_H[i + 1], _ = rnn_cells[i + 1].forward(temp_H[i+1], temp_H[i])
             if i == LAYERS - 2:
-                Y.append(0)
+                Y.append(_)
         H.append(temp_H.copy())
     return np.stack(H), np.stack(Y)
