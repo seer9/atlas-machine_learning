@@ -5,6 +5,7 @@ import numpy as np
 
 class BidirectionalCell:
     """Bidirectional class"""
+
     def __init__(self, i, h, o):
         """Initialize the bidirectional cell
 
@@ -62,14 +63,21 @@ class BidirectionalCell:
         return h_prev
 
     def output(self, H):
-        """Calculate the output of the bidirectional cell
+        """Calculate all outputs for the RNN
 
         Args:
-            H: the concatenated hidden states from both directions
+            H: the concatenated hidden states
+            from both directions, excluding their initialized states
+               t: number of time steps
+               m: batch size for the data
+               h: dimensionality of the hidden states
 
         Returns:
-            y: the output of the cell
+            Y: containing the outputs for each time x
         """
-        y_raw = np.dot(H, self.Wy) + self.by
-        y = self.softmax(y_raw)
-        return y
+        t, m, _ = H.shape
+        Y = np.zeros((t, m, self.by.shape[1]))
+        for x in range(t):
+            y_raw = np.dot(H[x], self.Wy) + self.by
+            Y[x] = self.softmax(y_raw)
+        return Y
