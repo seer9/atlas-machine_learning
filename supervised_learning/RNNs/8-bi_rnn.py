@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-import numpy as np
 """
 Bidirectional RNN forward propagation module.
 IMPORTS ALREADY IN MAIN
 """
+import numpy as np
 
 
 def bi_rnn(bi_cell, X, h_0, h_t):
