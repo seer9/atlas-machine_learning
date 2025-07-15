@@ -20,30 +20,16 @@ class BidirectionalCell:
         self.bhb = np.zeros((1, h))
         self.by = np.zeros((1, o))
     
-    @staticmethod
-    def sigmoid(x):
-        """sigmoid activation function"""
-        return 1 / (1 + np.exp(-x))
-    
     def forward(self, h_prev, x_t):
         """Perform forward propagation
 
         Args:
-            h_prev: previous hidden state
-            x_t: data input for the cell
+            h_prev: the previous hidden state
+            x_t: the data input for the cell
 
         Returns:
-            h_next: new hidden state
+            h_next: the next hidden state
         """
         h_prev_x = np.concatenate((h_prev, x_t), axis=1)
-
-        # forward
-        h_forward = self.sigmoid(np.dot(h_prev_x, self.Whf) + self.bhf)
-
-        # backward
-        h_backward = self.sigmoid(np.dot(h_prev_x, self.Whb) + self.bhb)
-
-        # concatenate both
-        h_next = np.concatenate((h_forward, h_backward), axis=1)
-
+        h_next = np.tanh(np.dot(h_prev_x, self.Whf) + self.bhf)
         return h_next
