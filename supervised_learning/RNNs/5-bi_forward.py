@@ -19,7 +19,7 @@ class BidirectionalCell:
         self.bhf = np.zeros((1, h))
         self.bhb = np.zeros((1, h))
         self.by = np.zeros((1, o))
-    
+
     def forward(self, h_prev, x_t):
         """Perform forward propagation
 
@@ -30,6 +30,6 @@ class BidirectionalCell:
         Returns:
             h_next: the next hidden state
         """
-        h_prev_x = np.concatenate((h_prev, x_t), axis=1)
-        h_next = np.tanh(np.dot(h_prev_x, self.Whf) + self.bhf)
+        prev_x = np.concatenate((h_prev, x_t), axis=1)
+        h_next = np.tanh(np.dot(prev_x, self.Whf) + self.bhf)
         return h_next
