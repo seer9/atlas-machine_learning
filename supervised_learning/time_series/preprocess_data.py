@@ -14,7 +14,7 @@ def preprocess_data(
     print("Columns in dataset:", ds.columns)
     if 'Close' in ds.columns:
         ds = ds[['Close']]
-    elif:
+    elif 'close' in ds.columns:
         ds = ds[['close']]
     else:
         raise ValueError("Close or close column not found in dataset")
