@@ -1,0 +1,1 @@
+In this module ill be working with Word Embeddings and they are dense vector representations of words that capture their semantic meaning and relationships in natural language processing.
