@@ -12,9 +12,12 @@ def gensim_to_keras(model):
     Returns:
         keras.layers.Embedding: The Keras Embedding layer.
     """
-    return tf.keras.layers.Embedding(
-        input_dim=model.wv.vectors.shape[0],
-        output_dim=model.wv.vectors.shape[1],
-        embeddings_initializer=tf.keras.initializers.Constant(model.wv.vectors),
-        trainable=False
+    kv = model.wv
+    w = kv.vectors
+    layers = tf.keras.layers.Embedding(
+        input_dim=kv.vectors.shape[0],
+        output_dim=kv.vectors.shape[1],
+        weights=[w],
+        trainable=True,
     )
+    return layers
