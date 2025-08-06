@@ -24,16 +24,16 @@ def fasttext_model(sentences, vector_size=100, min_count=5, negative=5,
     else:
         cf = 1
 
-        model = gensim.models.FastText(
-            sentences=sentences,
-            vector_size=vector_size,
-            min_count=min_count,
-            window=window,
-            negative=negative,
-            sg=cf,
-            epochs=epochs,
-            seed=seed,
-            workers=workers
+    model = gensim.models.FastText(
+        sentences=sentences,
+        vector_size=vector_size,
+        min_count=min_count,
+        window=window,
+        negative=negative,
+        sg=cf,
+        epochs=epochs,
+        seed=seed,
+        workers=workers
         )
     model.build_vocab(sentences)
     model.train(sentences,
