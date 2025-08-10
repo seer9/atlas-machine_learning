@@ -52,7 +52,9 @@ def cumulative_bleu(references, sentence, n):
 
     # calulate brevity penalty
     ref_lens = [len(ref) for ref in references]
-    closest_ref_len = min(ref_lens, key=lambda ref_len: (abs(ref_len - sent_len), ref_len))
-    brevity_penalty = np.exp(1 - closest_ref_len / sent_len) if sent_len < closest_ref_len else 1
+    closest_ref_len = min(
+        ref_lens, key=lambda ref_len: (abs(ref_len - sent_len), ref_len))
+    brevity_penalty = np.exp(
+        1 - closest_ref_len / sent_len) if sent_len < closest_ref_len else 1
 
     return geometric_mean * brevity_penalty
