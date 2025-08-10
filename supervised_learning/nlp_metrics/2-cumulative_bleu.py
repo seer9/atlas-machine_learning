@@ -29,8 +29,8 @@ def get_matches(references, sentence, n):
 
 
 def cumulative_bleu(references, sentence, n):
-    """Calculate the cumulative n-gram BLEU score for a sentence against a list of
-    reference sentences.
+    """Calculate the cumulative n-gram BLEU score for a sentence against
+    a list of reference sentences.
 
     Args:
         references: list of reference sentences, each a list of words.
@@ -43,7 +43,7 @@ def cumulative_bleu(references, sentence, n):
     if sen_len == 0:
         return 0.0
 
-    # Calculate precision for each n-gram size 
+    # Calculate precision for each n-gram size
     precisions = []
     for k in range(1, n + 1):
         matches = get_matches(references, sentence, k)
@@ -52,15 +52,15 @@ def cumulative_bleu(references, sentence, n):
         total_matches = sum(matches.values())
 
         # Calculate the precision for k-grams
-        possible_ngrams = max(1, sen_len - k + 1) 
+        possible_ngrams = max(1, sen_len - k + 1)
         precision = total_matches / possible_ngrams
         precisions.append(precision)
 
     # Calculate the geometric mean of precisions
     if all(p == 0 for p in precisions):
-        geometric_mean = 0.0
+        g_mean = 0.0
     else:
-        geometric_mean = np.exp(np.sum(np.log(p) for p in precisions if p > 0) / n)
+        g_mean = np.exp(np.sum(np.log(p) for p in precisions if p > 0) / n)
 
     # Calculate the brevity penalty
     ref_lens = [len(ref) for ref in references]
@@ -71,5 +71,5 @@ def cumulative_bleu(references, sentence, n):
         brevity_penalty = np.exp(1 - ref_len / sen_len)
 
     # Calculate the BLEU score
-    bleu_score = brevity_penalty * geometric_mean
+    bleu_score = brevity_penalty * g_mean
     return bleu_score
