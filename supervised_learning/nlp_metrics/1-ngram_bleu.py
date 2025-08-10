@@ -16,7 +16,8 @@ def get_matches(references, sentence, n):
     for ref in references:
         ref_ngrams = get_ngrams(ref, n)
         for ngram in ref_ngrams:
-            ref_counts[ngram] = max(ref_counts.get(ngram, 0), ref_ngrams.count(ngram))
+            ref_counts[ngram] = max(
+                ref_counts.get(ngram, 0), ref_ngrams.count(ngram))
 
     matches = {}
     for ngram in sentence_ngrams:
