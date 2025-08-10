@@ -1,0 +1,1 @@
+Evaluation metrics in NLP are quantitative measures used to assess the performance of models in tasks like classification, translation, and summarization.
