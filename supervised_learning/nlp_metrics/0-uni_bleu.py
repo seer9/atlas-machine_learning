@@ -18,35 +18,30 @@ def uni_bleu(references, sentence):
     all_words = {}
 
     # Count occurrences of each word in the sentence
-    for word in sentence:
-        if word in all_words:
-            all_words[word] += 1
-        else:
-            all_words[word] = 1
+    for word in set(sentence):
+        max_count = 0
+        # For each reference, count the occurrences of the word
+        for ref in references:
+            count = ref.count(word)
+            if count > max_count:
+                max_count = count
+        all_words[word] = max_count
 
-    # Count occurrences of each word in the references
-    for ref in references:
-        ref_len.append(len(ref))
-        for word in ref:
-            if word in all_words:
-                all_words[word] += 1
-            else:
-                all_words[word] = 1
+    # Calculate the total number of matches
+    total_matches = sum(all_words.values())
 
-    # Calculate the number of matches
-    matches = 0
-    for word, count in all_words.items():
-        if count > 1:
-            matches += count - 1
-    # Calculate the brevity penalty
-    ref_len = np.array(ref_len)
-    min_ref_len = ref_len.min()
-    if sen_len > min_ref_len:
-        bp = 1
-    else:
-        bp = np.exp(1 - (min_ref_len / sen_len))
-    # Calculate the BLEU score
-    if sen_len == 0:
+    # Calculate the precision
+    if total_matches == 0:
         return 0.0
-    bleu_score = bp * (matches / sen_len)
+    precision = total_matches / sen_len
+
+    # Calculate the brevity penalty
+    ref_len = min(len(ref) for ref in references)
+    if sen_len > ref_len:
+        brevity_penalty = 1.0
+    else:
+        brevity_penalty = np.exp(1 - ref_len / sen_len)
+
+    # Calculate the BLEU score
+    bleu_score = brevity_penalty * precision
     return bleu_score
