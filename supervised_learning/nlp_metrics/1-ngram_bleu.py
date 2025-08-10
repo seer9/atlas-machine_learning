@@ -17,9 +17,7 @@ def get_matches(references, sentence, n):
         ref_ngrams = get_ngrams(ref, n)
         for ngram in sentence_ngrams:
             if ngram in ref_ngrams:
-                if ngram not in matches:
-                    matches[ngram] = 0
-                matches[ngram] += 1
+                matches[ngram] = matches.get(ngram, 0) + 1
 
     return matches
 
