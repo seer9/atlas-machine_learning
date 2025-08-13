@@ -65,13 +65,13 @@ class Dataset():
         en_tokens = [vocab_size_en] + (
             self.tokenizer_en.encode(en_text) + [vocab_size_en + 1])
 
-        return (tf.convert_to_tensor(pt_tokens),
-                tf.convert_to_tensor(en_tokens))
+        return (tf.convert_to_tensor(pt_tokens, dtype=tf.int64),
+                tf.convert_to_tensor(en_tokens, dtype=tf.int64))
 
     def tf_encode(self, pt, en):
         """wrapper for the encode method"""
         pt_encoded, en_encoded = tf.py_function(
-            self.encode, [pt, en], [tf.string, tf.string])
+            self.encode, [pt, en], [tf.int64, tf.int64])
 
         pt_encoded.set_shape([None])
         en_encoded.set_shape([None])
