@@ -2,7 +2,6 @@
 """dataset class"""
 import transformers
 import tensorflow_datasets as tfds
-import numpy as np
 import tensorflow as tf
 
 
@@ -66,7 +65,7 @@ class Dataset():
         en_tokens = [vocab_size_en] + (
             self.tokenizer_en.encode(en_text) + [vocab_size_en + 1])
 
-        return np.array(pt_tokens), np.array(en_tokens)
+        return tf.convert_to_tensor(pt_tokens, dtype=tf.int64), tf.convert_to_tensor(en_tokens, dtype=tf.int64)
 
     def tf_encode(self, pt, en):
         """wrapper for the encode method"""
