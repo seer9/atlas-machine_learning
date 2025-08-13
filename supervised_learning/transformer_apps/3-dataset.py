@@ -12,13 +12,14 @@ class Dataset():
         """initializes the dataset
 
         Args:
-            batch_size (int): Batch size for training/validation
-            max_len (int): Maximum number of tokens allowed per example sentence
+            batch_size: Batch size for training
+            max_len: Maximum number of tokens allowed per example sentence
         """
 
         def filter_max_length(pt, en):
-            """Filter function to remove examples with sentences longer than max_len"""
-            return tf.logical_and(tf.size(pt) <= max_len, tf.size(en) <= max_len)
+            """function to remove examples longer than max_len"""
+            return tf.logical_and(tf.size(pt) <= max_len,
+                                  tf.size(en) <= max_len)
 
         # Load datasets
         self.data_train = tfds.load('ted_hrlr_translate/pt_to_en',
@@ -41,7 +42,8 @@ class Dataset():
         self.data_train = (self.data_train
                            .cache()
                            .shuffle(20000)
-                           .padded_batch(batch_size, padded_shapes=([None], [None]))
+                           .padded_batch(
+                               batch_size, padded_shapes=([None], [None]))
                            .prefetch(tf.data.experimental.AUTOTUNE))
 
         # Batch the validation dataset
