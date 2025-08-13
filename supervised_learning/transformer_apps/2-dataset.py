@@ -70,7 +70,7 @@ class Dataset():
     def tf_encode(self, pt, en):
         """wrapper for the encode method"""
         pt_encoded, en_encoded = tf.py_function(
-            self.encode, [pt, en], [tf.int64, tf.int64])
+            self.encode, [pt, en], [tf.string, tf.string])
 
         pt_encoded.set_shape([None])
         en_encoded.set_shape([None])
