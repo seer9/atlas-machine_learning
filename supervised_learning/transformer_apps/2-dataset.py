@@ -11,44 +11,47 @@ class Dataset():
     def __init__(self):
         """initializes the dataset"""
 
-        # datasets
+        # Load datasets
         self.data_train = tfds.load('ted_hrlr_translate/pt_to_en',
                                     split='train', as_supervised=True)
         self.data_valid = tfds.load('ted_hrlr_translate/pt_to_en',
                                     split='validation', as_supervised=True)
 
-        # tokenizers
+        # Load tokenizers
         self.tokenizer_pt, self.tokenizer_en = self.tokenize_dataset()
+
+        # Preprocess datasets
+        self.data_train = self.data_train.map(self.tf_encode)
+        self.data_valid = self.data_valid.map(self.tf_encode)
+
+        # Add padding and batching
+        self.data_train = self.data_train.padded_batch(64, padded_shapes=([None], [None]))
+        self.data_valid = self.data_valid.padded_batch(64, padded_shapes=([None], [None]))
 
     def tokenize_dataset(self):
         """Creates tokenizers using BertTokenizerFast and trains them"""
 
-        # load pre-trained BERT tokenizers
-        tokenizer_pt = transformers.BertTokenizerFast.from_pretrained(
-            'neuralmind/bert-base-portuguese-cased')
-        tokenizer_en = transformers.BertTokenizerFast.from_pretrained(
-            'bert-base-uncased')
+        try:
+            # Load pre-trained BERT tokenizers
+            tokenizer_pt = transformers.BertTokenizerFast.from_pretrained(
+                'neuralmind/bert-base-portuguese-cased')
+            tokenizer_en = transformers.BertTokenizerFast.from_pretrained(
+                'bert-base-uncased')
 
-        # helper function to decode and strip text
-        def decode_and_strip(dataset, lang):
-            for pt, en in dataset:
-                if lang == 'pt':
-                    text = pt.numpy().decode('utf-8')
-                else:
-                    text = en.numpy().decode('utf-8')
-                yield text.strip()
+            # Train tokenizers on the dataset
+            tokenizer_pt.train_new_from_iterator(
+                (pt.numpy().decode('utf-8') for pt, _ in self.data_train),
+                vocab_size=(2**13)
+            )
+            tokenizer_en.train_new_from_iterator(
+                (en.numpy().decode('utf-8') for _, en in self.data_train),
+                vocab_size=(2**13)
+            )
 
-        # train the tokenizers
-        tokenizer_pt.train_new_from_iterator(
-            decode_and_strip(self.data_train, lang='pt'),
-            vocab_size=(2**13)
-        )
-        tokenizer_en.train_new_from_iterator(
-            decode_and_strip(self.data_train, lang='en'),
-            vocab_size=(2**13)
-        )
+            return tokenizer_pt, tokenizer_en
 
-        return tokenizer_pt, tokenizer_en
+        except Exception as e:
+            raise RuntimeError(f"Error loading tokenizers: {e}")
 
     def encode(self, pt, en):
         """Encodes Portuguese and English sentences into tokens."""
@@ -63,7 +66,7 @@ class Dataset():
         pt_tokens = [vocab_size_pt] + self.tokenizer_pt.encode(pt_text) + [vocab_size_pt + 1]
         en_tokens = [vocab_size_en] + self.tokenizer_en.encode(en_text) + [vocab_size_en + 1]
 
-        # convert to tensors
+        # Convert to tensors
         return tf.convert_to_tensor(pt_tokens, dtype=tf.int64), tf.convert_to_tensor(en_tokens, dtype=tf.int64)
 
     def tf_encode(self, pt, en):
