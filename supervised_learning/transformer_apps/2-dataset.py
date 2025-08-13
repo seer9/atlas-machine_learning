@@ -25,8 +25,10 @@ class Dataset():
         self.data_valid = self.data_valid.map(self.tf_encode)
 
         # Add padding and batching
-        self.data_train = self.data_train.padded_batch(64, padded_shapes=([None], [None]))
-        self.data_valid = self.data_valid.padded_batch(64, padded_shapes=([None], [None]))
+        self.data_train = self.data_train.padded_batch(
+            64, padded_shapes=([None], [None]))
+        self.data_valid = self.data_valid.padded_batch(
+            64, padded_shapes=([None], [None]))
 
     def tokenize_dataset(self):
         """Creates tokenizers using BertTokenizerFast and trains them"""
@@ -63,11 +65,14 @@ class Dataset():
         en_text = en.numpy().decode('utf-8')
 
         # Tokenize and add start/end tokens
-        pt_tokens = [vocab_size_pt] + self.tokenizer_pt.encode(pt_text) + [vocab_size_pt + 1]
-        en_tokens = [vocab_size_en] + self.tokenizer_en.encode(en_text) + [vocab_size_en + 1]
+        pt_tokens = [vocab_size_pt] + (
+            self.tokenizer_pt.encode(pt_text) + [vocab_size_pt + 1])
+        en_tokens = [vocab_size_en] + (
+            self.tokenizer_en.encode(en_text) + [vocab_size_en + 1])
 
         # Convert to tensors
-        return tf.convert_to_tensor(pt_tokens, dtype=tf.int64), tf.convert_to_tensor(en_tokens, dtype=tf.int64)
+        return (tf.convert_to_tensor(pt_tokens, dtype=tf.int64),
+                tf.convert_to_tensor(en_tokens, dtype=tf.int64))
 
     def tf_encode(self, pt, en):
         """Wrapper for the encode method."""
