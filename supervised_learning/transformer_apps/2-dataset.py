@@ -56,22 +56,21 @@ class Dataset():
         vocab_size_en = self.tokenizer_en.vocab_size
 
         # Decode tensors to strings
-        pt_text = pt.numpy().decode('utf-8')
-        en_text = en.numpy().decode('utf-8')
+        pt_text = tf.compat.as_text(pt.numpy())
+        en_text = tf.compat.as_text(en.numpy())
 
         # Tokenize and add start/end tokens
-        pt_tokens = [vocab_size_pt] + (
-            self.tokenizer_pt.encode(pt_text) + [vocab_size_pt + 1])
-        en_tokens = [vocab_size_en] + (
-            self.tokenizer_en.encode(en_text) + [vocab_size_en + 1])
+        pt_tokens = [vocab_size_pt] + self.tokenizer_pt.encode(pt_text) + [vocab_size_pt + 1]
+        en_tokens = [vocab_size_en] + self.tokenizer_en.encode(en_text) + [vocab_size_en + 1]
 
-        return (tf.convert_to_tensor(pt_tokens, dtype=tf.int64),
-                tf.convert_to_tensor(en_tokens, dtype=tf.int64))
+        # Convert to TensorFlow tensors
+        return tf.constant(pt_tokens, dtype=tf.int64), tf.constant(en_tokens, dtype=tf.int64)
 
     def tf_encode(self, pt, en):
-        """wrapper for the encode method"""
+        """Wrapper for the encode method."""
         pt_encoded, en_encoded = tf.py_function(
-            self.encode, [pt, en], [tf.int64, tf.int64])
+            self.encode, [pt, en], [tf.int64, tf.int64]
+        )
 
         pt_encoded.set_shape([None])
         en_encoded.set_shape([None])
