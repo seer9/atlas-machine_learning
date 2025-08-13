@@ -17,25 +17,15 @@ class Dataset():
                                     split='validation', as_supervised=True)
 
         # Create tokenizers
-        self.tokenizer_pt, self.tokenizer_en = self.tokenize_dataset(
-            self.data_train)
+        self.tokenizer_pt, self.tokenizer_en = self.tokenize_dataset()
 
-    def tokenize_dataset(self, data):
-        """Creates sub-word tokenizers for the dataset"""
+    def tokenize_dataset(self):
+        """Creates tokenizers using BertTokenizerFast"""
 
-        # Use SubwordTextEncoder to build tokenizers
-        SubwordTextEncoder = tfds.deprecated.text.SubwordTextEncoder
-
-        # Build Portuguese tokenizer
-        tokenizer_pt = SubwordTextEncoder.build_from_corpus(
-            (pt.numpy() for pt, _ in data),
-            target_vocab_size=(2**13)
-        )
-
-        # Build English tokenizer
-        tokenizer_en = SubwordTextEncoder.build_from_corpus(
-            (en.numpy() for _, en in data),
-            target_vocab_size=(2**13)
-        )
+        # Load pre-trained BERT tokenizers for Portuguese and English
+        tokenizer_pt = transformers.BertTokenizerFast.from_pretrained(
+            'neuralmind/bert-base-portuguese-cased')
+        tokenizer_en = transformers.BertTokenizerFast.from_pretrained(
+            'bert-base-uncased')
 
         return tokenizer_pt, tokenizer_en
