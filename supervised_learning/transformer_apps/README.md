@@ -1,0 +1,1 @@
+In this module ill be learning about Transformer applications and how it leverages subword tokenization and autotokenizers to efficiently process and understand text data by breaking it into meaningful subunits.
