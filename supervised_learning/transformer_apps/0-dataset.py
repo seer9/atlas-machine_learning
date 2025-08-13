@@ -22,7 +22,7 @@ class Dataset():
     def tokenize_dataset(self):
         """Creates tokenizers using BertTokenizerFast and trains them"""
 
-        # load pre-trained BERT tokenizers 
+        # load pre-trained BERT tokenizers
         tokenizer_pt = transformers.BertTokenizerFast.from_pretrained(
             'neuralmind/bert-base-portuguese-cased')
         tokenizer_en = transformers.BertTokenizerFast.from_pretrained(
@@ -35,16 +35,16 @@ class Dataset():
                     text = pt.numpy().decode('utf-8')
                 else:
                     text = en.numpy().decode('utf-8')
-                yield text.strip() 
+                yield text.strip()
 
         # train the tokenizers
         tokenizer_pt.train_new_from_iterator(
             decode_and_strip(self.data_train, lang='pt'),
-            vocab_size=2**13
+            vocab_size=(2**13)
         )
         tokenizer_en.train_new_from_iterator(
             decode_and_strip(self.data_train, lang='en'),
-            vocab_size=2**13
+            vocab_size=(2**13)
         )
 
         return tokenizer_pt, tokenizer_en
