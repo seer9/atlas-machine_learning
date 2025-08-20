@@ -47,7 +47,7 @@ def semantic_search(corpus_path, sentence):
 
 
 def gets_answer(question, reference):
-    """Finds a snippet of text within a reference document to answer a question.
+    """Finds a snippet of text within a reference document to answer a question
     Args:
         question: The question to answer.
         reference: The reference document to search.
@@ -67,7 +67,7 @@ def gets_answer(question, reference):
     # Pass the input tensors to the model
     output = model(input_tensors)
 
-    # initialize the start and end 
+    # initialize the start and end
     start_logits = output[0]
     end_logits = output[1]
 
@@ -78,12 +78,14 @@ def gets_answer(question, reference):
 
     # Extract and decode the answer tokens
     a_tokens = input_tensors[0][0, start_index:end_index + 1]
-    answer = tokenizer.decode(a_tokens, skip_special_tokens=True, clean_up_tokenization_spaces=True)
+    answer = tokenizer.decode(
+        a_tokens, skip_special_tokens=True, clean_up_tokenization_spaces=True)
     # No answer, Returns None
     if not answer.strip():
         return None
 
     return answer
+
 
 def question_answer(coprus_path):
     """Answers questions from referred to text"""
