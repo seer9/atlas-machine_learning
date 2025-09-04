@@ -1,0 +1,1 @@
+In this module, ill learning about Q-learning. It is a model-free reinforcement learning algorithm that learns the optimal action-selection policy for an agent by iteratively updating Q-values based on rewards and future state estimations.
