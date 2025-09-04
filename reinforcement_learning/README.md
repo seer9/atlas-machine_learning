@@ -1,0 +1,1 @@
+In this module, ill be working with Reinforcement Learning. It is a type of machine learning where an agent learns to make decisions by performing actions in an environment to maximize cumulative rewards.
