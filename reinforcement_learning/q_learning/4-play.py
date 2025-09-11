@@ -45,6 +45,5 @@ def play(env, Q, max_steps=100):
 
     """final rendering of the environment"""
     outputs.append(env.render())
-    
-    return total_rewards, outputs
 
+    return total_rewards, outputs
