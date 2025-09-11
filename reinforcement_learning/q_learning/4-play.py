@@ -43,8 +43,8 @@ def play(env, Q, max_steps=100):
         if done:
             break
 
-        """final rendering of the environment"""
-        outputs.append(env.render())
+    """final rendering of the environment"""
+    outputs.append(env.render())
     
     return total_rewards, outputs
 
