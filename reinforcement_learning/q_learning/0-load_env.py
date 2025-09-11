@@ -17,5 +17,5 @@ def load_frozen_lake(desc=None, map_name=None, is_slippery=False):
     Returns:
         gym.Env: The loaded frostlake environment.
     """
-    return gym.make('FrozenLake-v1', desc=desc, render_mode="ansi")
+    return gym.make('FrozenLake-v1', desc=desc, render_mode="ansi", is_slippery=is_slippery)
                     
