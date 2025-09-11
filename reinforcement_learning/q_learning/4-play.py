@@ -42,6 +42,9 @@ def play(env, Q, max_steps=100):
         """checking if the episode is done"""
         if done:
             break
+
+        """final rendering of the environment"""
+        outputs.append(env.render())
     
     return total_rewards, outputs
 
