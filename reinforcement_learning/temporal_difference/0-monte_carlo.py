@@ -31,15 +31,16 @@ def monte_carlo(env, V, policy, episodes=5000,
             action = policy(state)
             next_state, reward, terminated, truncated, _ = env.step(action)
             data.append((state, reward))
+
             if terminated or truncated:
                 break
             state = next_state
-        
+
         G = 0
         data = np.array(data, dtype=int)
         # Calculate the return and update the value function
         for state, reward in reversed(data):
             G = reward + gamma * G
-            if state not in data [:episode, 0]:
+            if state not in data[:episode, 0]:
                 V[state] += alpha * (G - V[state])
     return V
