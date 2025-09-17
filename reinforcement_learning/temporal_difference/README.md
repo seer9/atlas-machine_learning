@@ -1,0 +1,1 @@
+In this module ill be working with Temporal Difference, which is a model-free reinforcement learning method that updates value estimates based on the difference between predicted and actual rewards, combining ideas from Monte Carlo and dynamic programming.
