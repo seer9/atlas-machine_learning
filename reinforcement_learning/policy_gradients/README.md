@@ -1,0 +1,1 @@
+In this module ill be looking at and working with Policy gradient. These are methods in reinforcement learning of algorithms that optimize the policy directly by estimating the gradient of expected rewards with respect to the policy parameters and updating them in the direction of improvement.
