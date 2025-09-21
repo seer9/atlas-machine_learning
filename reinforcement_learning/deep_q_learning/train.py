@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import numpy as np
 import gymnasium as gym
 from gymnasium.wrappers import AtariPreprocessing
 from keras.models import Sequential
