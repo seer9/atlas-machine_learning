@@ -4,13 +4,14 @@ import numpy as np
 policy_gradient = __import__('policy_gradient').policy_gradient
 
 
-def train(env, nb_episodes, alpha=0.000045, gamma=0.98):
+def train(env, nb_episodes, alpha=0.000045, gamma=0.98, show_result=False):
     """Trains a policy gradient agent.
     Args:
         env: the initial environment
         nb_episodes: number of episodes used for training the agent
         alpha: learning rate
         gamma: discount factor
+        show_result: if True, renders the environment every 1000 episodes
     Returns: all values of the score
     (sum of all rewards during one episode loop)
     """
@@ -26,6 +27,8 @@ def train(env, nb_episodes, alpha=0.000045, gamma=0.98):
         rewards = []
 
         while not done and score < 500:
+            if show_result and episode % 1000 == 0:
+                env.render()
             action, grad = policy_gradient(state, weight)
             state, reward, done, _, _ = env.step(action)
             state = state[None, :]
