@@ -44,6 +44,6 @@ def train(env, nb_episodes, alpha=0.000045, gamma=0.98, show_result=False):
                 r * (gamma ** t) for t, r in enumerate(rewards[i:])
             )
 
-        print(f"Episode: {episode} Score: {score}")
+        print(f"Episode:{episode} Score:{score}")
 
     return scores
