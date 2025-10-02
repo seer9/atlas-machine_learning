@@ -1,0 +1,1 @@
+Data augmentation techniques, such as flipping, rotation, and cropping, enhance the diversity of training data to improve model generalization.
