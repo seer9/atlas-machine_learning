@@ -1,0 +1,1 @@
+Machine learning pipeline is the sequence of data processing, model training, and evaluation steps designed to automate and streamline the development of predictive models.
