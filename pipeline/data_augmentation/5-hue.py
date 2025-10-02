@@ -7,7 +7,7 @@ def change_hue(image, delta):
     """Changes the hue of an image.
     Args:
         image: image to change the hue of
-        delta: maximum delta for hue adjustment
+        delta: the amount the hue should change
     Returns: hue-adjusted image
     """
-    return tf.image.random_hue(image, delta)
+    return tf.image.adjust_hue(image, delta)
