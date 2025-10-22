@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-"""
-removes entries where Close has NaN values.
-Arg:
-    df: The input DataFrame.
-Returns: The modified DataFrame.
-"""
+"""prune task"""
+
+
 def prune(df):
-    """Removes entries where Close has NaN values."""
+    """
+    removes entries where Close has NaN values.
+    Arg:
+        df: The input DataFrame.
+    Returns: The modified DataFrame.
+    """
     df = df.dropna(subset=['Close'])
     return df
