@@ -4,7 +4,7 @@
 
 def flip_switch(df):
     """
-    Flips the dataframe upside down and switches 
+    Flips the dataframe upside down and switches
     the first column with the last one.
     Arg:
         df: The input DataFrame.
