@@ -15,6 +15,14 @@ def concat(df1, df2):
     """
     df1 = index(df1)
     df2 = index(df2)
-    df = pd.concat([df1, df2])
+    
+    # Filter df2 to include only rows up to and including timestamp 1417411920
+    df2 = df2[df2.index <= 1417411920]
+    
+    # Concatenate the dataframes with keys
+    df = pd.concat([df2, df1], keys=['bitstamp', 'coinbase'])
+    
+    # Sort the concatenated dataframe by index
     df = df.sort_index()
+    
     return df
