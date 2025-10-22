@@ -3,8 +3,13 @@
 
 
 def flip_switch(df):
-    """flips the dataframe upside down and switches the first column with the last one
-    Arg:"""
+    """
+    Flips the dataframe upside down and switches 
+    the first column with the last one.
+    Arg:
+        df: The input DataFrame.
+    Returns: The modified DataFrame.
+    """
     df = df.sort_index(ascending=False)
     df = df.transpose()
     return df
