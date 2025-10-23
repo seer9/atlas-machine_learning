@@ -15,23 +15,23 @@ if __name__ == "__main__":
     first_launch = sorted_launches[0]
 
     # Extract required information
-    l_name = first_launch['name']
-    local = first_launch.get('local', 'Unknown Location')
+    launch_name = first_launch['name']
+    date_local = first_launch['date_local']
     rocket_id = first_launch['rocket']
     launchpad_id = first_launch['launchpad']
 
     # Fetch rocket details
     rocket_url = f"https://api.spacexdata.com/v4/rockets/{rocket_id}"
     rocket_response = requests.get(rocket_url)
-    r_name = rocket_response.json()['name']
+    rocket_name = rocket_response.json()['name']
 
     # Fetch launchpad details
     launchpad_url = f"https://api.spacexdata.com/v4/launchpads/{launchpad_id}"
     launchpad_response = requests.get(launchpad_url)
     launchpad_data = launchpad_response.json()
-    launchpad_name = launchpad_data['name']
-    launchpad_local = launchpad_data['locality']
+    lp_name = launchpad_data['name']
+    lp_local = launchpad_data['locality']
 
     # Display the formatted result
     print(
-        f"{l_name} ({local}) {r_name} - {launchpad_name} ({launchpad_local})")
+        f"{launch_name} ({date_local}) {rocket_name} - {lp_name} ({lp_local})")
