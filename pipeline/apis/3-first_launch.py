@@ -8,30 +8,30 @@ if __name__ == "__main__":
     response = requests.get(url)
     data = response.json()
 
-    # Sort launches by date_unix
+    # sort launches 
     sorted_launches = sorted(data, key=lambda x: x['date_unix'])
 
-    # Get the first launch
+    # find the first launch
     first_launch = sorted_launches[0]
 
-    # Extract required information
+    # extract information i want
     launch_name = first_launch['name']
     date_local = first_launch['date_local']
     rocket_id = first_launch['rocket']
     launchpad_id = first_launch['launchpad']
 
-    # Fetch rocket details
+    # get the rocket details
     rocket_url = f"https://api.spacexdata.com/v4/rockets/{rocket_id}"
     rocket_response = requests.get(rocket_url)
     rocket_name = rocket_response.json()['name']
 
-    # Fetch launchpad details
+    # find launchpad details
     launchpad_url = f"https://api.spacexdata.com/v4/launchpads/{launchpad_id}"
     launchpad_response = requests.get(launchpad_url)
     launchpad_data = launchpad_response.json()
     lp_name = launchpad_data['name']
     lp_local = launchpad_data['locality']
 
-    # Display the formatted result
+    # display the information with a format
     print(
         f"{launch_name} ({date_local}) {rocket_name} - {lp_name} ({lp_local})")
