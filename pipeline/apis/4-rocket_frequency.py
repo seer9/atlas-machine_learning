@@ -34,4 +34,3 @@ if __name__ == "__main__":
     # Print results
     for rocket_name, count in result:
         print(f"{rocket_name}: {count}")
-    
