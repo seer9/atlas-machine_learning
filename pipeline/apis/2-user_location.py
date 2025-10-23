@@ -17,7 +17,8 @@ if __name__ == "__main__":
         elif response.status_code == 404:
             print("Not found")
         elif response.status_code == 403:
-            reset_time = int(response.headers.get("X-RateLimit-Reset", time.time()))
+            reset_time = int(
+                response.headers.get("X-RateLimit-Reset", time.time()))
             minutes_to_reset = (reset_time - int(time.time())) // 60
             print(f"Reset in {minutes_to_reset} min")
     else:
