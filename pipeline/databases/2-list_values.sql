@@ -1,3 +1,3 @@
--- lists all rows of the table "first_table" in db_0
-USE db_0;
+-- lists all rows of the table "first_table" in the specified database
+USE ${DB_NAME};
 SELECT * FROM first_table;
