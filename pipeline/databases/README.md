@@ -1,0 +1,1 @@
+In this module ill be working with MySQL. Its an open-source database management system that uses Structured Query Language for managing and querying data.
