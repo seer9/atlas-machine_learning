@@ -2,14 +2,18 @@
 -- adds a new correction for the student
 DELIMITER //
 CREATE PROCEDURE AddBonus(
-    IN student_email VARCHAR(255),
-    IN bonus_points INT
-)
-BEGIN
-    UPDATE students
-    SET points = points + bonus_points
-    WHERE email = student_email;
+    IN user_id INT, 
+    IN project_name VARCHAR(255),
+    IN score INT)
+BEGIN 
+    DECLARE project_id INT;
 
-    SELECT * FROM students;
+    SELECT id INTO project_id 
+    FROM projects 
+    WHERE name = project_name;
+    IF project_id IS NOT NULL THEN
+        INSERT INTO corrections (user_id, project_id, points) 
+        VALUES (user_id, project_id, 1);
+    END IF;
 END //
 DELIMITER ;
