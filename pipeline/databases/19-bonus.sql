@@ -10,3 +10,5 @@ BEGIN
     SET points = points + bonus_points
     WHERE email = student_email;
 END //
+DELIMITER ;
+
