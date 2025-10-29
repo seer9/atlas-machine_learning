@@ -9,6 +9,7 @@ BEGIN
     UPDATE students
     SET points = points + bonus_points
     WHERE email = student_email;
+
+    SELECT * FROM students;
 END //
 DELIMITER ;
-
