@@ -11,9 +11,11 @@ BEGIN
     SELECT id INTO project_id 
     FROM projects 
     WHERE name = project_name;
-    IF project_id IS NOT NULL THEN
-        INSERT INTO corrections (user_id, project_id, points) 
-        VALUES (user_id, project_id, 1);
-    END IF;
+    IF project_id IS NULL THEN
+        INSERT INTO projects (name)
+        VALUES (project_name);
+     END IF;
+        INSERT INTO corrections (user_id, project_id, score) 
+        VALUES (user_id, project_id, score);
 END //
 DELIMITER ;
