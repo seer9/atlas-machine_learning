@@ -1,4 +1,4 @@
-// inserts a doc in the collection 'school'
+// inserts a doc in the collection school
 db.school.insert(
-    {name; "Holberton school"}
+    { name; "Holberton school" }
 );
